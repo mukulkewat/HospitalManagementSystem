@@ -1,21 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="dijit/themes/claro/claro.css">
     <script>
-        var dojoConfig={
-            async:true,
-            parseOnLoad:true
+        var dojoConfig = {
+            async: false,
+            parseOnLoad: true
         }
     </script>
     <script src="dojo/dojo.js"></script>
     <title>HospitalManagement</title>
+    <style>
+        .footer-top-div {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            background-color: blue;
+            padding: 5%;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+
+        }
+
+        .wrapper {
+            background-color: yellow;
+            padding: 10%;
+            border-radius: 3px;
+
+        }
+
+        a {
+            all: unset;
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <body class="claro">
     <header></header>
-    
-    <footer></footer>
+
+    <footer id="footerContainer">
+        <div id="buttonContainer"></div>
+    </footer>
 </body>
+<style>
+    .buttonContainer {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .infoGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .infoItem {
+        background-color: #fff;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .footerPane {
+        background-color: blue;
+        padding: 20px;
+        border-top: 1px solid #ccc;
+    }
+    #list{
+        list-style: none;   
+    }
+</style>
+
+<script>
+    dojoConfig = {
+        parseOnLoad: true
+    };
+</script>
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.16.4/dojo/dojo.js"></script>
+
+<script>
+    require([
+        "dijit/layout/ContentPane",
+        "dijit/form/Button",
+        "dojo/dom-construct",
+        "dojo/domReady!"
+    ], function (ContentPane, Button, domConstruct) {
+
+        // Create the footer ContentPane
+        var footerPane = new ContentPane({
+            class: "footerPane",
+            region: "bottom"
+        }, domConstruct.create("div", null, document.body));
+
+        // Add button container inside footer
+        var buttonContainer = domConstruct.create("div", {
+            className: "buttonContainer"
+        }, footerPane.domNode);
+
+        // Save button
+        var saveButton = new Button({
+            label: "Save",
+            style: "width: 100px;",
+            onClick: function () {
+                alert("Save clicked");
+            }
+        }).placeAt(buttonContainer);
+
+        // Cancel button
+        var cancelButton = new Button({
+            label: "Cancel",
+            style: "width: 100px;",
+            onClick: function () {
+                alert("Cancel clicked");
+            }
+        }).placeAt(buttonContainer);
+
+        saveButton.startup();
+        cancelButton.startup();
+
+        // Info grid section
+        var infoGrid = domConstruct.create("div", {
+            className: "infoGrid"
+        }, footerPane.domNode);
+
+        // Column 1
+        domConstruct.create("div", {
+            className: "infoItem",
+            innerHTML: "<strong>Center Of Excellence</strong><br><ul id='list'><li>Cardiac Science</li><li>Neuro Sciences</li><li>Orthopaedics</li><li>Nephrology</li><li>Urology</li><li>Gastro Sciences</li><li>Pulmonology & Critical Care</li><li>Obstetrics and Gynaecology</li><li>Paediatrics & Neonatology</li></ul>",
+            style:"list-style:none;"
+
+      }, infoGrid);
+
+    // Column 2
+    domConstruct.create("div", {
+        className: "infoItem",
+        innerHTML: "<strong>Address</strong><br>1234 Main Street, City"
+    }, infoGrid);
+
+    // Column 3
+    domConstruct.create("div", {
+        className: "infoItem",
+        innerHTML: "<strong>Phone</strong><br>+91-9876543210"
+    }, infoGrid);
+
+    // Start ContentPane
+    footerPane.startup();
+    });
+</script>
+
 </html>
