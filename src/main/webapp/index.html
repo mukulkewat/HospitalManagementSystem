@@ -1,21 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="dijit/themes/claro/claro.css">
-    <script>
-        var dojoConfig={
-            async:true,
-            parseOnLoad:true
-        }
-    </script>
-    <script src="dojo/dojo.js"></script>
-    <title>HospitalManagement</title>
+  <meta charset="UTF-8">
+  <title>Hospital Navbar</title>
+
+  <!-- Claro theme CSS -->
+  <link rel="stylesheet" href="dijit/themes/claro/claro.css">
+
+  <script>
+    var dojoConfig = {
+      async: true,
+      parseOnLoad: true
+    };
+  </script>
+
+  <script src="dojo/dojo.js"></script>
+
+  <style>
+    #navbar {
+      background-color: #a2d6c2;
+      color: rgb(197, 15, 15);
+      height: 40px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+    }
+
+    .navItem {
+      cursor: pointer;
+      padding: 0 20px;
+    }
+
+    .navItem:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
-<body class="claro">
-    <header></header>
-    
-    <footer></footer>
+
+<body class="claro" style="background-color: chocolate;">
+  <div id="mainContainer" style="width: 100%; height: 100vh;"></div>
+
+  <script>
+    require([
+      "dijit/layout/BorderContainer",
+      "dijit/layout/ContentPane",
+      "dojo/dom-construct",
+      "dojo/domReady!"
+    ], function(BorderContainer, ContentPane, domConstruct) {
+
+      // Step 1: Create layout
+      var layout = new BorderContainer({
+        design: "headline"
+      }, "mainContainer");
+
+      // Step 2: Create navbar
+      var navbarDiv = domConstruct.create("div", { id: "navbar" });
+
+      // Step 3: Create centerPane globally so we can update later
+      var centerPane = new ContentPane({
+        region: "center",
+        content: "<h2 style='padding: 20px;'>Welcome to Hospital Management</h2>"
+      });
+
+      // Step 4: Create menu items and click logic
+      var menuItems = {
+        "Need help?": "Here is the help information...",
+        "Careers": "Explore career opportunities at our hospital.",
+        "Contact Us": "Reach out to us at contact@hospital.com",
+        "Leave Feedback": "We value your feedback. Please share it!",
+        "Search": "Use our search feature to find doctors and services."
+      };
+
+      for (var label in menuItems) {
+        domConstruct.create("span", {
+          innerHTML: label,
+          className: "navItem",
+          onclick: (function(text) {
+            return function() {
+              centerPane.set("content", "<h3 style='padding:20px'>" + text + "</h3>");
+            };
+          })(menuItems[label])
+        }, navbarDiv);
+      }
+
+      // Step 5: Add navbar and centerPane to layout
+      var topPane = new ContentPane({
+        region: "top",
+        content: navbarDiv
+      });
+
+      layout.addChild(topPane);
+      layout.addChild(centerPane);
+      layout.startup();
+    });
+  </script>
 </body>
 </html>
