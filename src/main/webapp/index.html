@@ -2,157 +2,227 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+   <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="dijit/themes/claro/claro.css">
     <script>
-        var dojoConfig = {
-            async: false,
-            parseOnLoad: true
-        }
+      var dojoConfig = {
+        async: false,
+        parseOnLoad: true
+      }
     </script>
     <script src="dojo/dojo.js"></script>
     <title>HospitalManagement</title>
     <style>
-        .footer-top-div {
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-            background-color: blue;
-            padding: 5%;
-            display: flex;
-            justify-content: space-between;
-            flex-direction: row;
+      .footer-top-div {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        background-color: blue;
+        padding: 5%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
 
-        }
+      }
 
-        .wrapper {
-            background-color: yellow;
-            padding: 10%;
-            border-radius: 3px;
+      .wrapper {
+        background-color: yellow;
+        padding: 10%;
+        border-radius: 3px;
 
-        }
+      }
 
-        a {
-            all: unset;
-            cursor: pointer;
-        }
-    </style>
-</head>
+      a {
+        all: unset;
+        cursor: pointer;
+      }
 
-<body class="claro">
-    <header></header>
-
-    <footer id="footerContainer">
-        <div id="buttonContainer"></div>
-    </footer>
-</body>
-<style>
-    .buttonContainer {
+      .buttonContainer {
         display: flex;
         justify-content: center;
         gap: 20px;
         margin-bottom: 20px;
-    }
+      }
 
-    .infoGrid {
+      .infoGrid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 15px;
         text-align: center;
         font-size: 14px;
-    }
+      }
 
-    .infoItem {
+      .infoItem {
         background-color: #fff;
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 4px;
-    }
+      }
 
-    .footerPane {
+      .footerPane {
         background-color: blue;
         padding: 20px;
         border-top: 1px solid #ccc;
-    }
-    #list{
-        list-style: none;   
-    }
-</style>
+      }
+
+      #list {
+        list-style: none;
+      }
+    </style>
+    <style>
+      #navbar {
+        background-color: #a2d6c2;
+        color: rgb(197, 15, 15);
+        height: 40px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+      }
+
+      .navItem {
+        cursor: pointer;
+        padding: 0 20px;
+      }
+
+      .navItem:hover {
+        text-decoration: underline;
+      }
+    </style>
+</head>
+
 
 <script>
-    dojoConfig = {
-        parseOnLoad: true
+  require([
+    "dijit/layout/BorderContainer",
+    "dijit/layout/ContentPane",
+    "dojo/dom-construct",
+    "dojo/domReady!"
+  ], function (BorderContainer, ContentPane, domConstruct) {
+
+    // Step 1: Create layout
+    var layout = new BorderContainer({
+      design: "headline"
+    }, "mainContainer");
+
+    // Step 2: Create navbar
+    var navbarDiv = domConstruct.create("div", { id: "navbar" });
+
+    // Step 3: Create centerPane globally so we can update later
+    var centerPane = new ContentPane({
+      region: "center",
+      content: "<h2 style='padding: 20px;'>Welcome to Hospital Management</h2>"
+    });
+
+    // Step 4: Create menu items and click logic
+    var menuItems = {
+      "Need help?": "Here is the help information...",
+      "Careers": "Explore career opportunities at our hospital.",
+      "Contact Us": "Reach out to us at contact@hospital.com",
+      "Leave Feedback": "We value your feedback. Please share it!",
+      "Search": "Use our search feature to find doctors and services."
     };
+
+    for (var label in menuItems) {
+      domConstruct.create("span", {
+        innerHTML: label,
+        className: "navItem",
+        onclick: (function (text) {
+          return function () {
+            centerPane.set("content", "<h3 style='padding:20px'>" + text + "</h3>");
+          };
+        })(menuItems[label])
+      }, navbarDiv);
+    }
+
+    // Step 5: Add navbar and centerPane to layout
+    var topPane = new ContentPane({
+      region: "top",
+      content: navbarDiv
+    });
+
+    layout.addChild(topPane);
+    layout.addChild(centerPane);
+    layout.startup();
+  });
 </script>
-<script src="//ajax.googleapis.com/ajax/libs/dojo/1.16.4/dojo/dojo.js"></script>
 
+<body class="claro" style="background-color: chocolate;">
+  <header>
+    <div id="mainContainer" style="width: 100%; height: 100vh;"></div>
+  </header>
+
+  <footer id="footerContainer">
+    <div id="buttonContainer"></div>
+  </footer>
+</body>
 <script>
-    require([
-        "dijit/layout/ContentPane",
-        "dijit/form/Button",
-        "dojo/dom-construct",
-        "dojo/domReady!"
-    ], function (ContentPane, Button, domConstruct) {
+  require([
+    "dijit/layout/ContentPane",
+    "dijit/form/Button",
+    "dojo/dom-construct",
+    "dojo/domReady!"
+  ], function (ContentPane, Button, domConstruct) {
 
-        // Create the footer ContentPane
-        var footerPane = new ContentPane({
-            class: "footerPane",
-            region: "bottom"
-        }, domConstruct.create("div", null, document.body));
+    // Create the footer ContentPane
+    var footerPane = new ContentPane({
+      class: "footerPane",
+      region: "bottom"
+    }, domConstruct.create("div", null, document.body));
 
-        // Add button container inside footer
-        var buttonContainer = domConstruct.create("div", {
-            className: "buttonContainer"
-        }, footerPane.domNode);
+    // Add button container inside footer
+    var buttonContainer = domConstruct.create("div", {
+      className: "buttonContainer"
+    }, footerPane.domNode);
 
-        // Save button
-        var saveButton = new Button({
-            label: "Save",
-            style: "width: 100px;",
-            onClick: function () {
-                alert("Save clicked");
-            }
-        }).placeAt(buttonContainer);
+    // Save button
+    var saveButton = new Button({
+      label: "Save",
+      style: "width: 100px;",
+      onClick: function () {
+        alert("Save clicked");
+      }
+    }).placeAt(buttonContainer);
 
-        // Cancel button
-        var cancelButton = new Button({
-            label: "Cancel",
-            style: "width: 100px;",
-            onClick: function () {
-                alert("Cancel clicked");
-            }
-        }).placeAt(buttonContainer);
+    // Cancel button
+    var cancelButton = new Button({
+      label: "Cancel",
+      style: "width: 100px;",
+      onClick: function () {
+        alert("Cancel clicked");
+      }
+    }).placeAt(buttonContainer);
 
-        saveButton.startup();
-        cancelButton.startup();
+    saveButton.startup();
+    cancelButton.startup();
 
-        // Info grid section
-        var infoGrid = domConstruct.create("div", {
-            className: "infoGrid"
-        }, footerPane.domNode);
+    // Info grid section
+    var infoGrid = domConstruct.create("div", {
+      className: "infoGrid"
+    }, footerPane.domNode);
 
-        // Column 1
-        domConstruct.create("div", {
-            className: "infoItem",
-            innerHTML: "<strong>Center Of Excellence</strong><br><ul id='list'><li>Cardiac Science</li><li>Neuro Sciences</li><li>Orthopaedics</li><li>Nephrology</li><li>Urology</li><li>Gastro Sciences</li><li>Pulmonology & Critical Care</li><li>Obstetrics and Gynaecology</li><li>Paediatrics & Neonatology</li></ul>",
-            style:"list-style:none;"
+    // Column 1
+    domConstruct.create("div", {
+      className: "infoItem",
+      innerHTML: "<strong>Center Of Excellence</strong><br><ul id='list'><li>Cardiac Science</li><li>Neuro Sciences</li><li>Orthopaedics</li><li>Nephrology</li><li>Urology</li><li>Gastro Sciences</li><li>Pulmonology & Critical Care</li><li>Obstetrics and Gynaecology</li><li>Paediatrics & Neonatology</li></ul>",
+      style: "list-style:none;"
 
-      }, infoGrid);
+    }, infoGrid);
 
     // Column 2
     domConstruct.create("div", {
-        className: "infoItem",
-        innerHTML: "<strong>Address</strong><br>1234 Main Street, City"
+      className: "infoItem",
+      innerHTML: "<strong>Address</strong><br>1234 Main Street, City"
     }, infoGrid);
 
     // Column 3
     domConstruct.create("div", {
-        className: "infoItem",
-        innerHTML: "<strong>Phone</strong><br>+91-9876543210"
+      className: "infoItem",
+      innerHTML: "<strong>Phone</strong><br>+91-9876543210"
     }, infoGrid);
 
     // Start ContentPane
     footerPane.startup();
-    });
+  });
 </script>
-
 </html>
