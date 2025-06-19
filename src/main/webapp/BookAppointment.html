@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hospital Appointment Form</title>
+
+    <!-- Dojo and Dijit CSS -->
+    <link rel="stylesheet" href="dijit/themes/claro/claro.css">
+
+    <!-- Dojo -->
+    <script>
+        dojoConfig = {
+            async: false,
+            parseOnLoad: true
+        };
+    </script>
+    <script src="dojo/dojo.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            margin-top: 50px;
+            width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-row {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+
+        #submitBtn {
+            width: 100%;
+        }
+        #buttondiv{
+            display: flex;
+            justify-content: space-between;
+            align-items:center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+
+<body class="claro" style="background: linear-gradient(90deg, #3F2B96 0%, #A8C0FF 100%)">
+
+    <!-- <h2 id="head1" style="margin-bottom: 50px;">Hospital Appointment Form</h2><br> -->
+    <div class="form-container">
+        <h2 id="head1" style="margin-bottom: 50px;">Hospital Appointment Form</h2><br>
+        <form data-dojo-type="dijit/form/Form" id="appointmentForm">
+
+            <div class="form-row">
+                <label for="patientName">Patient Name</label>
+                <input data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true" name="patientName"
+                    id="patientName">
+            </div>
+
+            <div class="form-row">
+                <label for="department">Department</label>
+                <select data-dojo-type="dijit/form/FilteringSelect" id="department" name="department"
+                    data-dojo-props="required:true, searchAttr: 'name'">
+                    <option value="cardiology">Cardiology</option>
+                    <option value="neurology">Neurology</option>
+                    <option value="orthopaedics">Orthopaedics</option>
+                    <option value="paediatrics">Paediatrics</option>
+                    <option value="gynaecology">Gynaecology</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label for="appointmentDate">Appointment Date</label>
+                <input data-dojo-type="dijit/form/DateTextBox" id="appointmentDate" name="appointmentDate"
+                    data-dojo-props="required:true">
+            </div>
+
+            <div class="form-row">
+                <label for="appointmentTime">Appointment Time</label>
+                <input data-dojo-type="dijit/form/TimeTextBox" id="appointmentTime" name="appointmentTime"
+                    data-dojo-props="required:true">
+            </div>
+            <div id="buttondiv">
+                <div class="form-row">
+                    <button data-dojo-type="dijit/form/Button" type="submit" id="submitBtn">
+                        Appointment
+                    </button>
+                </div>
+                <div class="form-row">
+                    <button data-dojo-type="dijit/form/Button" type="reset" id="submitBtn1">
+                        Reset
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <script src="BookAppointment.js"></script>
+</body>
+
+</html>

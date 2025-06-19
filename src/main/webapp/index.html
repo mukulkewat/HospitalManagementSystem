@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="dijit/themes/claro/claro.css">
     <script>
       var dojoConfig = {
-        async: false,
+        async: true,
         parseOnLoad: true
       }
     </script>
@@ -177,19 +177,19 @@
 
     // Save button
     var saveButton = new Button({
-      label: "Save",
-      style: "width: 100px;",
+      label: "Book Appointment",
+      style: "width: 100px;margin-right:100px;",
       onClick: function () {
-        alert("Save clicked");
+        alert("Book Appointment ....");
       }
     }).placeAt(buttonContainer);
 
     // Cancel button
     var cancelButton = new Button({
-      label: "Cancel",
+      label: "FAQ",
       style: "width: 100px;",
       onClick: function () {
-        alert("Cancel clicked");
+        alert("FAQ ....");
       }
     }).placeAt(buttonContainer);
 
