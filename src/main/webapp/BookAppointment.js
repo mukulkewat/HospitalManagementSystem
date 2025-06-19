@@ -17,10 +17,10 @@ require([
       let patientName = registry.byId("patientName").get("value").trim();
       let department = registry.byId("department").get("value").trim();
       let appointmentDate = registry.byId("appointmentDate").get("value");
-	  //convert to string
+      //convert to string
       let isoDate = appointmentDate.toISOString().split("T")[0];
       let appointmentTime = registry.byId("appointmentTime").get("value");
-	  //convert to string
+      //convert to string
       let timeStr = appointmentTime.toTimeString().split(" ")[0];
       let patientDetail = {
         Name: patientName,
@@ -28,6 +28,7 @@ require([
         AppointmentDate: isoDate,
         AppointmentTime: timeStr,
       };
+
       uploadDetail(patientDetail);
 
       alert("Appointment submitted successfully!");
@@ -40,23 +41,20 @@ require([
     console.log(patient.Department);
     console.log(patient.AppointmentDate);
     console.log(patient.AppointmentTime);
-    xhr
-      .post("/appointment", {
-        data: {
-          patientName: patient.Name,
-          department: patient.Department,
-          appointmentDate: patient.AppointmentDate,
-          appointmentTime: patient.AppointmentTime,
-        },
+	  xhr.post("appointment", {
+        data: JSON.stringify(patient),
         handleAs: "json",
+        headers: {
+          "Content-Type": "application/json",
+        }
       })
       .then(
         function (response) {
           console.log("Success:", response);
           alert("Appointment submitted in xhrpost!");
         },
-        function (error) {
-          console.error("Error:", error);
+        function (errorr) {
+          console.error("Error:", errorr);
           alert("Submission failed!");
         }
       );
