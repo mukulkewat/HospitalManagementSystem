@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Leave Feedback</title>
+  <link rel="stylesheet" href="dijit/themes/claro/claro.css">
+
+  <script>
+    var dojoConfig = {
+      async: false,
+      parseOnLoad: false
+    };
+  </script>
+  <script src="dojo/dojo.js"></script>
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background: #f5f9ff;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 30px;
+      background: white;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      border-radius: 10px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #3b5998;
+    }
+
+    .form-field {
+      margin-bottom: 20px;
+    }
+
+    .form-field label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .button-group {
+      text-align: center;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body class="claro">
+  <div class="container">
+    <h2>Leave Your Feedback</h2>
+
+    <form data-dojo-type="dijit/form/Form" id="feedbackForm">
+      <div class="form-field">
+        <label for="name">Full Name</label>
+        <input id="name" name="name" data-dojo-type="dijit/form/ValidationTextBox" required="true" />
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email Address</label>
+        <input id="email" name="email"
+               data-dojo-type="dijit/form/ValidationTextBox"
+               required="true"
+               />
+      </div>
+
+      <div class="form-field">
+        <label for="feedback">Your Feedback</label>
+        <textarea id="feedback" name="feedback"
+                  data-dojo-type="dijit/form/SimpleTextarea"
+                  rows="5" style="width:100%;"></textarea>
+      </div>
+
+      <div class="button-group">
+        <button data-dojo-type="dijit/form/Button" type="submit" style="margin-right:10px;">Submit</button>
+        <button data-dojo-type="dijit/form/Button" type="reset">Reset</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    require([
+      "dojo/parser",
+      "dijit/form/Form",
+      "dijit/form/ValidationTextBox",
+      "dijit/form/SimpleTextarea",
+      "dijit/form/Button",
+      "dojo/dom",
+      "dojo/on",
+      "dijit/registry",
+      "dojo/domReady!"
+    ], function(parser, Form, ValidationTextBox, SimpleTextarea, Button, dom, on, registry) {
+      parser.parse();
+
+      var form = registry.byId("feedbackForm");
+
+      on(form, "submit", function (e) {
+        e.preventDefault();
+        if (form.validate()) {
+          alert("Thank you for your feedback!");
+          form.reset();
+        } else {
+          alert("Please fill in all required fields correctly.");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

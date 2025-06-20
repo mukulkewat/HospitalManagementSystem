@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Career Application - Hospital</title>
+
+  <!-- Dojo Config -->
+  <script>
+    var dojoConfig = {
+      async: true,
+      parseOnLoad: false
+    };
+  </script>
+
+  <!-- Dojo CSS & JS -->
+  <link rel="stylesheet" href="dijit/themes/claro/claro.css">
+  <script src="dojo/dojo.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+
+    .form-container {
+      width: 500px;
+      margin: auto;
+      padding: 20px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+
+    .form-title {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-field {
+      margin-bottom: 15px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+
+<body class="claro" style="background: linear-gradient(90deg, #FDBB2D 0%, #3A1C71 100%);">
+  <div class="form-container">
+    <div class="form-title">Career Application Form</div>
+
+    <!-- Dojo Form -->
+    <form id="careerForm" data-dojo-type="dijit/form/Form">
+      <div class="form-field">
+        <label for="name">Full Name</label>
+        <input id="name" name="name" data-dojo-type="dijit/form/ValidationTextBox" required="true">
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email Address</label>
+        <input id="email" name="email" data-dojo-type="dijit/form/ValidationTextBox">
+              
+      </div>
+
+      <div class="form-field">
+        <label for="position">Position Applying For</label>
+        <input id="position" name="position" data-dojo-type="dijit/form/ValidationTextBox" required="true">
+      </div>
+
+      <div class="form-field">
+        <label for="experience">Years of Experience</label>
+        <input id="experience" name="experience" data-dojo-type="dijit/form/TextBox" required="true">
+      </div>
+
+      <div class="form-field">
+        <label for="notes">Additional Notes</label>
+        <textarea id="notes" name="notes" data-dojo-type="dijit/form/SimpleTextarea" rows="4" cols="40"></textarea>
+      </div>
+
+      <div class="form-field" style="text-align:center;">
+        <button data-dojo-type="dijit/form/Button" type="submit">Submit</button>
+        <button data-dojo-type="dijit/form/Button" type="reset">Reset</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    require([
+      "dojo/parser",
+      "dojo/on",
+      "dijit/registry",
+      "dojo/domReady!"
+    ], function(parser, on, registry) {
+
+      parser.parse().then(function () {
+        var form = registry.byId("careerForm");
+
+        if (!form) {
+          console.error("Form not found!");
+          return;
+        }
+
+        on(form, "submit", function (e) {
+          e.preventDefault();
+
+          if (form.validate()) {
+            alert("Application submitted successfully!");
+            form.reset();
+          } else {
+            alert("Please correct the errors in the form.");
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
