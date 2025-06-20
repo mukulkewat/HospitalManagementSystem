@@ -14,34 +14,8 @@
 
   <!-- Dojo and Theme -->
   <link rel="stylesheet" href="dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="CSS/contact.css">
   <script src="dojo/dojo.js"></script>
-
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f2f7fa;
-      padding: 40px;
-    }
-
-    .contact-container {
-      max-width: 600px;
-      margin: auto;
-      padding: 25px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    h2 {
-      text-align: center;
-      color: #2e7d32;
-      margin-bottom: 20px;
-    }
-
-    .form-field {
-      margin-bottom: 20px;
-    }
-  </style>
 </head>
 
 <body class="claro">
@@ -75,32 +49,6 @@
       </div>
     </form>
   </div>
-
-  <script>
-    require([
-      "dojo/parser",
-      "dojo/on",
-      "dijit/registry",
-      "dijit/form/Form",
-      "dijit/form/ValidationTextBox",
-      "dijit/form/SimpleTextarea",
-      "dijit/form/Button",
-      "dojo/domReady!"
-    ], function(parser, on, registry) {
-      parser.parse();
-
-      var form = registry.byId("contactForm");
-
-      on(form, "submit", function(e) {
-        e.preventDefault();
-        if (form.validate()) {
-          alert("Thank you! Your message has been sent.");
-          form.reset();
-        } else {
-          alert("Please fill all fields correctly.");
-        }
-      });
-    });
-  </script>
+  <script src="JS/contact.js"> </script>
 </body>
 </html>

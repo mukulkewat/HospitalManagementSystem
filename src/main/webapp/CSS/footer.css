@@ -1,0 +1,53 @@
+.footer-top-div {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        background-color: blue;
+        padding: 5%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+
+      }
+
+      .wrapper {
+        background-color: yellow;
+        padding: 10%;
+        border-radius: 3px;
+
+      }
+
+      a {
+        all: unset;
+        cursor: pointer;
+      }
+
+      .buttonContainer {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      .infoGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        text-align: center;
+        font-size: 14px;
+      }
+
+      .infoItem {
+        background-color: #fff;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .footerPane {
+        background-color: blue;
+        padding: 20px;
+        border-top: 1px solid #ccc;
+      }
+
+      #list {
+        list-style: none;
+      }

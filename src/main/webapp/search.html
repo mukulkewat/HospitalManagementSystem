@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Disease-based Doctor Search</title>
-  
+
   <!-- Dojo Claro theme -->
   <link rel="stylesheet" href="dijit/themes/claro/claro.css">
-  
+  <link rel="stylesheet" href="CSS/search.css">
   <script>
     var dojoConfig = {
       async: true,
@@ -14,105 +15,22 @@
     };
   </script>
   <script src="dojo/dojo.js"></script>
-
-  <style>
-    body {
-  font-family: Arial, sans-serif;
-  margin: 30px;
-  background: linear-gradient(to right, #6a11cb, #2575fc); /* Violet to blue */
-}
-
-    .container {
-      max-width: 700px;
-      margin: auto;
-    }
-    #results {
-      margin-top: 20px;
-    }
-    .result-item {
-      background: #f1f1f1;
-      padding: 12px;
-      margin-bottom: 12px;
-      border-radius: 6px;
-      box-shadow: 0 0 6px rgba(0,0,0,0.1);
-    }
-    .result-item strong {
-      display: block;
-      margin-top: 5px;
-      color: #333;
-    }
-  </style>
 </head>
+
 <body class="claro">
   <div class="container">
     <h1>Find Doctor by Disease</h1>
     <p>Type your health problem (e.g., heart, brain, child, fracture) to find the right doctor.</p>
 
-    <input data-dojo-type="dijit/form/TextBox" 
-           id="diseaseBox" 
-           placeholder="Enter your disease..." 
-           style="width: 100%;" />
+    <input data-dojo-type="dijit/form/TextBox" id="diseaseBox" placeholder="Enter your disease..."
+      style="width: 100%;" />
 
-    <button data-dojo-type="dijit/form/Button" 
-            type="button" 
-            onclick="findDoctor()">Search Doctor</button>
+    <button data-dojo-type="dijit/form/Button" type="button" onclick="findDoctor()">Search Doctor</button>
 
     <div id="results"></div>
   </div>
 
-  <script>
-    require([
-      "dojo/dom", 
-      "dojo/dom-construct", 
-      "dojo/_base/array", 
-      "dojo/parser", 
-      "dijit/form/TextBox", 
-      "dijit/form/Button"
-    ], function(dom, domConstruct, array, parser) {
-      parser.parse();
-
-      // Doctor database with disease keywords
-      var doctorData = [
-        { name: "Dr. Smith - Cardiologist", diseases: ["heart", "cardio", "chest pain"] },
-        { name: "Dr. Anjali Mehta - Neurologist", diseases: ["brain", "headache", "stroke"] },
-        { name: "Dr. Rakesh Sharma - Pediatrician", diseases: ["child", "baby", "kids", "fever"] },
-        { name: "Dr. Fatima Khan - Orthopedic", diseases: ["bone", "fracture", "joint"] },
-        { name: "Dr. Suresh Patel - ENT", diseases: ["ear", "nose", "throat", "cold"] }
-      ];
-
-      // Function to search doctor by disease
-      window.findDoctor = function() {
-  var input = dom.byId("diseaseBox").value.toLowerCase().trim();
-  var resultDiv = dom.byId("results");
-  domConstruct.empty(resultDiv);
-
-  var found = false;
-
-  array.forEach(doctorData, function(doctor) {
-    var match = doctor.diseases.some(function(keyword) {
-      return keyword.toLowerCase() === input;  // ✅ Exact match only
-    });
-
-    if (match) {
-      domConstruct.create("div", {
-        innerHTML: doctor.name + 
-                   "<br><strong>Specializes in:</strong> " + 
-                   doctor.diseases.join(", "),
-        className: "result-item"
-      }, resultDiv);
-      found = true;
-    }
-  });
-
-  if (!found) {
-    domConstruct.create("div", {
-      innerHTML: "No matching doctor found for your problem.",
-      className: "result-item"
-    }, resultDiv);
-  }
-};
-
-    });
-  </script>
+  <script src="JS/search.js"></script>
 </body>
+
 </html>

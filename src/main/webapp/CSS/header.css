@@ -1,0 +1,19 @@
+#navbar {
+        background-color: #a2d6c2;
+        color: rgb(197, 15, 15);
+        height: 40px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+      }
+
+      .navItem {
+        cursor: pointer;
+        padding: 0 20px;
+      }
+
+      .navItem:hover {
+        text-decoration: underline;
+      }

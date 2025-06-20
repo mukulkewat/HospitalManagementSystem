@@ -1,0 +1,29 @@
+ body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      /* Violet to blue */
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    #results {
+      margin-top: 20px;
+    }
+
+    .result-item {
+      background: #f1f1f1;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .result-item strong {
+      display: block;
+      margin-top: 5px;
+      color: #333;
+    }
