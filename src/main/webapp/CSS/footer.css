@@ -1,6 +1,6 @@
 .footer-top-div {
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        background-color: blue;
+        background:linear-gradient(90deg, #3F2B96 0%, #A8C0FF 100%);
         padding: 5%;
         display: flex;
         justify-content: space-between;
@@ -43,11 +43,13 @@
       }
 
       .footerPane {
-        background-color: blue;
         padding: 20px;
         border-top: 1px solid #ccc;
       }
 
       #list {
         list-style: none;
+      }
+      body{
+        font-family: Arial, sans-serif;
       }
