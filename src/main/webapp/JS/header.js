@@ -2,8 +2,9 @@ require([
   "dijit/layout/BorderContainer",
   "dijit/layout/ContentPane",
   "dojo/dom-construct",
+  'dojo/dom',
   "dojo/domReady!",
-], function (BorderContainer, ContentPane, domConstruct) {
+], function (BorderContainer, ContentPane, domConstruct,dom) {
   // Step 1: Create layout
   var layout = new BorderContainer(
     {
@@ -14,6 +15,11 @@ require([
 
   // Step 2: Create navbar
   var navbarDiv = domConstruct.create("div", { id: "navbar" });
+  var dynamicA = domConstruct.create("div",
+    {
+      id:"dynamicText"
+    }
+  )
 
   // Step 3: Create centerPane globally so we can update later
   var centerPane = new ContentPane({
@@ -45,7 +51,9 @@ require([
     </div>
   `,
   });
-
+  
+  console.log(dynamic);
+  
   // Step 4: Create menu items and click logic
   var menuItems = {
     "Need help?": "Here is the help information...",
@@ -64,7 +72,14 @@ require([
         onclick: (function (text, labelText) {
           return function () {
             if (labelText === "Careers") {
-              window.location.href = "careers.html";
+              //  var dynamicArea = document.getElementById("dynamicText");
+              dynamic
+              if (dynamicArea) {
+                centerPane.set("href","careers.html");
+              } else {
+                console.warn("dynamicText not found.");
+              }
+              
             } else if (labelText === "Leave Feedback") {
               window.location.href = "feeback.html";
             } else if (labelText === "Need help?") {
@@ -77,7 +92,7 @@ require([
               // ✅ Only update the text inside the dynamicText area
               var dynamicArea = document.getElementById("dynamicText");
               if (dynamicArea) {
-                dynamicArea.innerHTML = "<h3>" + text + "</h3>";
+                
               } else {
                 console.warn("dynamicText not found.");
               }

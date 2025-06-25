@@ -1,20 +1,32 @@
  body {
       font-family: Arial, sans-serif;
-      margin: 40px;
+      /* margin: 40px; */
+      padding: 30px;
+
     }
 
     .form-container {
-      width: 500px;
+      /* width: 500px;
       margin: auto;
       padding: 20px;
       border: 2px solid #ccc;
       border-radius: 8px;
-      background-color: #f9f9f9;
+      background-color: #f9f9f9; */
+
+      /*  */
+      max-width: 600px;
+      width: 500px;
+      margin: auto;
+      padding: 25px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      /* text-align: center; */
     }
 
     .form-title {
       font-size: 24px;
-      text-align: center;
+      /* text-align: center; */
       margin-bottom: 20px;
     }
 
@@ -26,4 +38,7 @@
       font-weight: bold;
       display: block;
       margin-bottom: 5px;
+    }
+    h2{
+      text-align: center;
     }
