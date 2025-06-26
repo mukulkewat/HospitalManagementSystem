@@ -95,7 +95,7 @@ var centerPane = new ContentPane({
   var menuItems = {
     "Need help?": "needhelp.html",
     "Careers": "careers.html",
-    "Contact Us": "contact.html",
+    
     "Leave Feedback": "feedback.html",
     "Search": "search.html"
   };
