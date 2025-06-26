@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Need Help - Hospital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="CSS/header.css">
+  <link rel="stylesheet" href="CSS/footer.css">
+  <link rel="stylesheet" href="CSS/needhelp.css">
+  <script>
+    var dojoConfig = {
+      async: true,
+      parseOnLoad: true
+    };
+  </script>
+  <script src="dojo/dojo.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(90deg, #3F2B96 0%, #A8C0FF 100%);
+      margin: 0;
+      padding: 30px;
+    }
+
+    .form-box {
+      max-width: 650px;
+      margin: auto;
+      padding: 30px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-field {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .needhelp-intro, .needhelp-info {
+      text-align: center;
+      color: #1e1e1e;
+      padding: 40px 20px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 12px;
+      margin: 30px auto;
+      max-width: 900px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .needhelp-intro:hover, .needhelp-info:hover {
+      background: rgba(136, 138, 241, 0.9);
+    }
+
+    .needhelp-intro h1 {
+      font-size: 36px;
+      color: #3b5998;
+      margin-bottom: 15px;
+    }
+
+    .needhelp-intro p,
+    .needhelp-info p {
+      font-size: 18px;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .needhelp-info h3 {
+      font-size: 28px;
+      color: #3b5998;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+
+<body class="claro">
+  <header>
+    <div id="mainContainer"></div>
+  </header>
+
+  <main>
+    <!-- Top Intro -->
+    <section class="needhelp-intro">
+      <h1>❓ Need Help?</h1>
+      <p>
+        At <strong>CityCare Hospital</strong>, we're always here to support you. Whether you have questions about appointments, billing, or emergencies, let us know how we can assist you.
+      </p>
+    </section>
+
+    <!-- Form Container -->
+    <div class="form-box">
+      <h2 style="color: #3b5998;">Submit Your Query</h2>
+      <form id="helpForm" data-dojo-type="dijit/form/Form">
+        <div class="form-field">
+          <label for="name">Full Name</label>
+          <input id="name" name="name" data-dojo-type="dijit/form/ValidationTextBox" required="true" />
+        </div>
+
+        <div class="form-field">
+          <label for="query">Query Type</label>
+          <select id="query" name="query" data-dojo-type="dijit/form/Select" required="true">
+            <option value="">-- Select --</option>
+            <option value="Appointment">Appointment</option>
+            <option value="Billing">Billing</option>
+            <option value="Doctor Availability">Doctor Availability</option>
+            <option value="Emergency">Emergency</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" cols="40" data-dojo-type="dijit/form/SimpleTextarea" required="true"></textarea>
+        </div>
+
+        <div style="text-align: center;">
+          <button data-dojo-type="dijit/form/Button" type="submit" style="margin-right:15px;">Submit</button>
+          <button data-dojo-type="dijit/form/Button" type="reset">Reset</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Bottom Info -->
+    <section class="needhelp-info">
+      <h3>How We Help</h3>
+      <p>
+        Our dedicated support team is here to ensure you have a smooth experience. We aim to respond to all queries within 24 hours. Don't hesitate to reach out with anything you need.
+      </p>
+    </section>
+  </main>
+
+  <footer id="footerContainer">
+    <div id="buttonContainer"></div>
+  </footer>
+
+  <script src="JS/header.js"></script>
+  <script src="JS/footer.js"></script>
+  <script src="JS/needhelp.js"></script>
+</body>
+</html>

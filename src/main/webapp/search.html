@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Search - Hospital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="CSS/header.css">
+  <link rel="stylesheet" href="CSS/footer.css">
+  <link rel="stylesheet" href="CSS/search.css">
+
+  <script>
+    var dojoConfig = {
+      async: true,
+      parseOnLoad: true
+    };
+  </script>
+  <script src="dojo/dojo.js"></script>
+
+  <style>
+    .search-intro {
+      text-align: center;
+      color: #1e1e1e;
+      padding: 40px 20px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .search-intro:hover {
+      background: rgba(136, 138, 241, 0.9);
+    }
+
+    .search-intro h1 {
+      font-size: 36px;
+      color: #3b5998;
+      margin-bottom: 15px;
+    }
+
+    .search-intro p {
+      font-size: 18px;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .search-box {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 600px;
+      margin: 0 auto 40px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-box input {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    .search-footer {
+      text-align: center;
+      padding: 30px 20px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      max-width: 900px;
+      margin: auto;
+    }
+
+    #results {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #333;
+    }
+  </style>
+</head>
+
+<body class="claro" style="background: linear-gradient(90deg, #3F2B96 0%, #A8C0FF 100%); font-family: Arial, sans-serif;">
+  <header>
+    <div id="mainContainer"></div>
+  </header>
+
+  <main style="max-width: 900px; margin: 40px auto; padding: 20px;">
+    <!-- Intro -->
+    <section class="search-intro">
+      <h1>⚕️ Doctor Finder</h1>
+      <p>Struggling with a health issue? Quickly find the right specialist at <strong>CityCare Hospital</strong> by simply typing your concern below.</p>
+    </section>
+
+    <!-- Search Form -->
+    <div class="search-box">
+      <input data-dojo-type="dijit/form/TextBox" id="diseaseBox" placeholder="Enter your disease..." />
+      <div style="text-align:center; margin-top: 15px;">
+        <button data-dojo-type="dijit/form/Button" type="button" onclick="findDoctor()">Search Doctor</button>
+      </div>
+      <div id="results"></div>
+    </div>
+
+    <!-- Footer Section -->
+    <section class="search-footer">
+      <h3>Fast. Accurate. Trusted.</h3>
+      <p>
+        Our system matches you with top doctors based on your symptoms, ensuring you receive expert care from the very beginning.
+        Available 24x7 for all your healthcare needs.
+      </p>
+    </section>
+  </main>
+
+  <footer id="footerContainer">
+    <div id="buttonContainer"></div>
+  </footer>
+
+  <!-- JS -->
+  <script src="JS/header.js"></script>
+  <script src="JS/footer.js"></script>
+  <script src="JS/search.js"></script>
+</body>
+
+</html>
