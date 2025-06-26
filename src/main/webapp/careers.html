@@ -1,61 +1,156 @@
-
+<!-- <!DOCTYPE html>
+<html lang="en"> -->
 <head>
   <meta charset="UTF-8">
   <title>Career Application - Hospital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Dojo Config -->
   <script>
     var dojoConfig = {
       async: true,
-      parseOnLoad: false
+      parseOnLoad: true
     };
   </script>
 
   <!-- Dojo CSS & JS -->
   <link rel="stylesheet" href="dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="CSS/header.css">
+  <link rel="stylesheet" href="CSS/footer.css">
   <link rel="stylesheet" href="CSS/careers.css">
   <script src="dojo/dojo.js"></script>
+  <style>
+    .career-intro {
+  text-align: center;
+  color: #1e1e1e;
+  padding: 40px 20px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.career-intro:hover {
+  background: rgba(136, 138, 241, 0.9);
+}
+
+.career-intro h1 {
+  font-size: 40px;
+  color: #3b5998;
+  margin-bottom: 15px;
+}
+
+.career-intro p {
+  font-size: 18px;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.career-why-join {
+  margin-top: 40px;
+  text-align: center;
+  color: #1e1e1e;
+  padding: 40px 20px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.career-why-join:hover {
+   background: rgba(136, 138, 241, 0.9);
+}
+
+.career-why-join h3 {
+  font-size: 28px;
+  color: #3b5998;
+  margin-bottom: 15px;
+}
+
+.career-why-join p {
+  max-width: 750px;
+  margin: 0 auto;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+
+  </style>
 </head>
 
+<body class="claro" style="background: linear-gradient(90deg, #3F2B96 0%, #A8C0FF 100%); font-family: Arial, sans-serif;">
+  <header>
+    <div id="mainContainer"></div> <!-- Header loaded via JS -->
+  </header>
 
-  <div class="form-container"  style="background-color: rgba(255, 255, 255, 0.6); padding: 20px; border-radius: 10px;">
-    <h2 style="color: #3b5998">Career Application Form</h2>
-    
-    <!-- Dojo Form -->
-    <form id="careerForm" data-dojo-type="dijit/form/Form">
-      <div class="form-field">
-        <label for="name">Full Name</label>
-        <input id="name" name="name" data-dojo-type="dijit/form/ValidationTextBox" required="true">
-      </div>
+  <main style="max-width: 900px; margin: 40px auto; padding: 20px;">
+    <!-- Top Intro -->
+    <section class="career-intro" style="text-align: center; color: #020101; margin-bottom: 30px;">
+      <h1 style="font-size: 36px;">🚀 Career Application</h1>
+      <p style="font-size: 18px;">
+        At <strong>CityCare Hospital</strong>, we believe in building a team of professionals dedicated to excellence, compassion, and innovation.
+        If you're ready to make a difference in healthcare, this is the place for you.
+      </p>
+    </section>
 
-      <div class="form-field">
-        <label for="email">Email Address</label>
-        <input id="email" name="email" data-dojo-type="dijit/form/ValidationTextBox">
-              
-      </div>
+    <!-- Form Container -->
+    <div class="form-container" style="background-color: rgba(255, 255, 255, 0.9); padding: 30px; border-radius: 12px;">
+      <form id="careerForm" data-dojo-type="dijit/form/Form">
+        <div class="form-field">
+          <label for="name">Full Name</label>
+          <input id="name" name="name" data-dojo-type="dijit/form/ValidationTextBox" required="true" />
+        </div>
 
-      <div class="form-field">
-        <label for="position">Position Applying For</label>
-        <input id="position" name="position" data-dojo-type="dijit/form/ValidationTextBox" required="true">
-      </div>
+        <div class="form-field">
+          <label for="email">Email Address</label>
+          <input id="email" name="email" data-dojo-type="dijit/form/ValidationTextBox" required="true" />
+        </div>
 
-      <div class="form-field">
-        <label for="experience">Years of Experience</label>
-        <input id="experience" name="experience" data-dojo-type="dijit/form/TextBox" required="true">
-      </div>
+        <div class="form-field">
+          <label for="position">Position Applying For</label>
+          <input id="position" name="position" data-dojo-type="dijit/form/ValidationTextBox" required="true" />
+        </div>
 
-      <div class="form-field">
-        <label for="notes">Additional Notes</label>
-        <textarea id="notes" name="notes" data-dojo-type="dijit/form/SimpleTextarea" rows="4" cols="40"></textarea>
-      </div>
+        <div class="form-field">
+          <label for="experience">Years of Experience</label>
+          <input id="experience" name="experience" data-dojo-type="dijit/form/NumberTextBox" required="true" />
+        </div>
 
-      <div class="form-field" style="text-align:center;">
-        <button data-dojo-type="dijit/form/Button" type="submit">Submit</button>
-        <button data-dojo-type="dijit/form/Button" type="reset">Reset</button>
-      </div>
-    </form>
-  </div>
+        <div class="form-field">
+          <label for="notes">Additional Notes</label>
+          <textarea id="notes" name="notes" data-dojo-type="dijit/form/SimpleTextarea" rows="5" style="width:100%;"></textarea>
+        </div>
 
-  <!-- JavaScript -->
+        <div class="form-field" style="text-align:center; margin-top: 20px;">
+          <button data-dojo-type="dijit/form/Button" type="submit" style="margin-right:15px;">Submit</button>
+          <button data-dojo-type="dijit/form/Button" type="reset">Reset</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Bottom Content -->
+    <section class="career-why-join"  style="margin-top: 40px; text-align: center; color: #0a0808;">
+      <h3 style="font-size: 24px;">Why Join Us?</h3>
+      <p style="max-width: 750px; margin: auto;">
+        Our hospital isn't just about cutting-edge treatments. It's about heart, values, and community. We offer:
+        <br><br>
+         Growth-oriented learning<br>
+         Friendly work culture<br>
+         Modern infrastructure & technology<br>
+         Leadership opportunities for all<br><br>
+        Become a part of our compassionate mission to serve lives with integrity and innovation.
+      </p>
+    </section>
+  </main>
+
+  <footer id="footerContainer">
+    <div id="buttonContainer"></div>
+  </footer>
+
+  <!-- JS Includes -->
+  <script src="JS/header.js"></script>
+  <script src="JS/footer.js"></script>
   <script src="JS/careers.js"></script>
-
+<!-- </body>
+</html> -->
