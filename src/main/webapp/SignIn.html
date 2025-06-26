@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Patient Registration</title>
+  <link rel="stylesheet" href="dijit/themes/claro/claro.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #c31432, #240b36);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .main-container {
+      display: flex;
+      width: 900px;
+      height: 480px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .left-section {
+      width: 50%;
+      background: #ffe8eb;
+      padding: 40px;
+    }
+
+    .left-section h2 {
+      color: #8b0000;
+      margin-bottom: 15px;
+    }
+
+    .left-section ul {
+      padding-left: 18px;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .right-section {
+      width: 50%;
+      padding: 40px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .right-section h3 {
+      margin-bottom: 20px;
+      color: #8b0000;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .register-button {
+      background: #8b0000;
+      color: white;
+      padding: 12px;
+      border: none;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 6px;
+      transition: 0.3s ease;
+    }
+
+    .register-button:hover {
+      background: #b30000;
+    }
+  </style>
+
+  <script>
+    var dojoConfig = {
+      parseOnLoad: true
+    };
+  </script>
+  <script src="dojo/dojo.js"></script>
+</head>
+
+<body class="claro">
+  <div class="main-container">
+    <!-- Left Info -->
+    <div class="left-section">
+      <img src="Images/hospital-logo.png" alt="Logo" style="height: 60px; margin-bottom: 20px;">
+      <h2>WELCOME TO PATIENT PORTAL</h2>
+      <p>The easiest way to manage your healthcare</p>
+      <ul>
+        <li>🗓️ Book appointment at your convenience</li>
+        <li>🧾 View medical records 24/7</li>
+        <li>🌐 Access health info from anywhere</li>
+        <li>👨‍⚕️ Connect with expert doctors instantly</li>
+      </ul>
+    </div>
+
+    <!-- Right Form -->
+    <div class="right-section">
+      <h3>Register</h3>
+
+      <div class="input-group">
+        <input id="emailInput" type="text" data-dojo-type="dijit/form/ValidationTextBox"
+          data-dojo-props="required:true, regExp:'^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$', invalidMessage:'Enter valid email'"
+          placeholder="Enter Email" style="width:100%;" />
+      </div>
+
+      <div class="input-group">
+        <input id="phoneInput" type="text" data-dojo-type="dijit/form/ValidationTextBox"
+          data-dojo-props="required:true, regExp:'^[6-9][0-9]{9}$', invalidMessage:'Enter valid phone number'"
+          placeholder="Enter Mobile Number" style="width:100%;" />
+      </div>
+
+      <button class="register-button" onclick="registerUser()">Register</button>
+    </div>
+  </div>
+
+  <script>
+    function registerUser() {
+      const email = dijit.byId("emailInput").get("value");
+      const phone = dijit.byId("phoneInput").get("value");
+
+      if (!email || !phone) {
+        alert("❗ Please fill both email and phone correctly.");
+        return;
+      }
+
+      // ✅ Simulate successful registration
+      localStorage.setItem("registeredUser", JSON.stringify({ email, phone }));
+      alert("✅ Registered successfully!");
+
+
+      // Redirect to homepage or appointment
+      window.location.href = "BookAppointment.html";
+    }
+  </script>
+</body>
+</html>

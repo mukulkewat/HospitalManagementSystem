@@ -22,6 +22,12 @@
  */
 
       /* ================================================================= */
+
+      .navItem:hover {
+  color: #0072ff;
+  transition: 0.3s;
+}
+
       #navbar {
   background: rgba(255, 255, 255, 0.7); /* semi-transparent white */
   color: #b00000; /* dark red */

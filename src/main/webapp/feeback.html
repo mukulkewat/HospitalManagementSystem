@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Leave Feedback</title>
+  <link rel="stylesheet" href="dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="CSS/feedback.css">
+  <script>
+    var dojoConfig = {
+      async: false,
+      parseOnLoad: false
+    };
+  </script>
+  <script src="dojo/dojo.js"></script>
+</head>
+
+<body class="claro" style="background: linear-gradient(90deg, #3F2B96 0%, #A8C0FF 100%)">
+  <div class="container">
+    <h2>Leave Your Feedback</h2>
+
+    <form data-dojo-type="dijit/form/Form" id="feedbackForm">
+      <div class="form-field">
+        <label for="name">Full Name</label>
+        <input id="name" name="name" data-dojo-type="dijit/form/ValidationTextBox" required="true" />
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email Address</label>
+        <input id="email" name="email"
+               data-dojo-type="dijit/form/ValidationTextBox"
+               required="true"
+               />
+      </div>
+
+      <div class="form-field">
+        <label for="feedback">Your Feedback</label>
+        <textarea id="feedback" name="feedback"
+                  data-dojo-type="dijit/form/SimpleTextarea"
+                  rows="5" style="width:100%;"></textarea>
+      </div>
+
+      <div class="button-group">
+        <button data-dojo-type="dijit/form/Button" type="submit" style="margin-right:10px;">Submit</button>
+        <button data-dojo-type="dijit/form/Button" type="reset">Reset</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="JS/feedback.js"></script>
+</body>
+</html>

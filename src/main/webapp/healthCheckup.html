@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Health Checkup</title>
+  <link rel="stylesheet" href="dijit/themes/claro/claro.css">
+  <script>
+    var dojoConfig = {
+      parseOnLoad: true,
+      async: true
+    };
+  </script>
+  <script src="dojo/dojo.js"></script>
+  <style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: linear-gradient(to right, #fceabb, #f8b500);  /* Sunny golden */
+
+  }
+</style>
+
+  </style>
+</head>
+<body class="claro" >
+  <div id="mainContainer"></div>
+
+  <script>
+    require([
+      "dojo/dom-construct",
+      "dojo/domReady!"
+    ], function(domConstruct) {
+
+      var container = domConstruct.create("div", {
+        style: `
+          padding: 30px;
+          background: #fff;
+          text-align: center;
+        `
+      }, "mainContainer");
+
+      domConstruct.create("h2", {
+        innerHTML: "Preventive Health Checkup Packages",
+        style: "color: #8B0000; margin-bottom: 10px;"
+      }, container);
+
+      domConstruct.create("p", {
+        innerHTML: "Choose from our specially designed health packages tailored to your needs.",
+        style: "margin-bottom: 30px; color: #444;"
+      }, container);
+
+      var cardWrapper = domConstruct.create("div", {
+        style: `
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 20px;
+        `
+      }, container);
+
+      function createHealthCard(title, price, bgColor) {
+        var card = domConstruct.create("div", {
+          style: `
+            width: 300px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background: ${bgColor};
+            color: white;
+            overflow: hidden;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          `
+        }, cardWrapper);
+
+        domConstruct.create("h3", {
+          innerHTML: title,
+          style: "margin-bottom: 10px; font-size: 20px;"
+        }, card);
+
+        domConstruct.create("p", {
+          innerHTML: `<strong>₹ ${price}/-</strong>`,
+          style: "font-size: 18px;"
+        }, card);
+
+        var btnContainer = domConstruct.create("div", {
+          style: "margin-top: 15px; display: flex; justify-content: space-between;"
+        }, card);
+
+        domConstruct.create("button", {
+          innerHTML: "Know More",
+          style: `
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+          `
+        }, btnContainer);
+
+        domConstruct.create("button", {
+          innerHTML: "Book Slot",
+          style: `
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+          `
+        }, btnContainer);
+      }
+
+      // Add colorful cards
+      createHealthCard("Diabetes Package", 1800, "#FF6B6B");      // Red
+      createHealthCard("Master Health Checkup", 3200, "#4ECDC4"); // Teal
+      createHealthCard("Cardiac Package", 3200, "#1A73E8");       // Blue
+      createHealthCard("Women's Wellness", 2500, "#B76AD9");      // Purple
+
+    });
+  </script>
+</body>
+</html>

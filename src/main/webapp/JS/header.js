@@ -2,32 +2,70 @@ require([
   "dijit/layout/BorderContainer",
   "dijit/layout/ContentPane",
   "dojo/dom-construct",
-  'dojo/dom',
-  "dojo/domReady!",
-], function (BorderContainer, ContentPane, domConstruct,dom) {
-  // Step 1: Create layout
-  var layout = new BorderContainer(
-    {
-      design: "headline",
-    },
-    "mainContainer"
-  );
+  "dojo/dom",
+  "dojo/domReady!"
+], function (BorderContainer, ContentPane, domConstruct, dom) {
 
-  // Step 2: Create navbar
-  var navbarDiv = domConstruct.create("div", { id: "navbar" });
-  
+  // Step 1: Layout Container
+  var layout = new BorderContainer({
+    design: "headline"
+  }, "mainContainer");
 
-  // Step 3: Create centerPane globally so we can update later
-  var centerPane = new ContentPane({
-    region: "center",
-    content: `
+  // Step 2: Create top nav bar wrapper
+  var navbarContainer = domConstruct.create("div", {
+  id: "navbarContainer",
+  style: `
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 30px;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  `
+});
+
+
+  // LEFT: Logo
+  var logo = domConstruct.create("img", {
+    src: "Images/logo.png",
+    alt: "Hospital Logo",
+    style: "height: 50px;"
+  }, navbarContainer);
+
+  // CENTER: Menu Container
+  var navItemsContainer = domConstruct.create("div", {
+    style: `
+      display: flex;
+      justify-content: center;
+      flex: 1;
+      gap: 30px;
+      font-weight: bold;
+      font-size: 16px;
+      margin-left: 50px;
+    `
+  }, navbarContainer);
+
+  // RIGHT: Optional Placeholder
+  domConstruct.create("div", {
+    style: "width: 60px;" // Just spacing balance
+  }, navbarContainer);
+
+  // Step 3: Center pane
+var centerPane = new ContentPane({
+  region: "center",
+  style: "padding: 0; margin: 0;",
+  content: `
     <div style="
       text-align: center;
-    background: linear-gradient(to right, #00c6ff, #0072ff);
-
-      padding: 30px;
+      background: linear-gradient(to right, rgb(27, 55, 63), #0072ff);
+      padding: 30px 20px 0;
       border-radius: 10px;
       color: white;
+      margin: 0;
     ">
       <h2 style="margin-bottom: 20px;">Welcome to Hospital Management</h2>
       <div id="dynamicText" style="
@@ -49,12 +87,11 @@ require([
      ">
 
     </div>
-  `,
-  });
-  
+  `
+});
 
-  
-  // Step 4: Create menu items and click logic
+
+  // Step 4: Navbar items
   var menuItems = {
     "Need help?": "needhelp.html",
     "Careers": "careers.html",
@@ -90,13 +127,61 @@ require([
   };
 }
 
-  // Step 5: Add navbar and centerPane to layout
+  // Step 5: Add header and center pane to layout
   var topPane = new ContentPane({
     region: "top",
-    content: navbarDiv,
+    content: navbarContainer
   });
 
   layout.addChild(topPane);
   layout.addChild(centerPane);
   layout.startup();
+
+  // Step 6: Sidebar buttons
+  var sidebarContainer = domConstruct.create("div", {
+    id: "rightSidebarContainer",
+    style: `
+      position: fixed;
+      top: 40%;
+      right: 0;
+      transform: translateY(-50%);
+      background-color: #8B0000;
+      border-radius: 8px 0 0 8px;
+      box-shadow: -2px 2px 10px rgba(0,0,0,0.2);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0;
+      gap: 15px;
+    `
+  }, document.body);
+
+  function createSidebarButton(icon, label, targetPage, needsLogin) {
+    var btn = domConstruct.create("div", {
+      innerHTML: `${icon}<br><span style='font-size: 13px;'>${label}</span>`,
+      style: `
+        color: white;
+        text-align: center;
+        cursor: pointer;
+        padding: 10px;
+        width: 120px;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        font-family: Arial;
+      `
+    }, sidebarContainer);
+
+    btn.addEventListener("click", function () {
+      if (needsLogin && localStorage.getItem("userLoggedIn") !== "true") {
+        alert("⚠️ Please sign in to access Book Appointment.");
+        window.location.href = "SignIn.html";
+      } else {
+        window.location.href = targetPage;
+      }
+    });
+  }
+
+  createSidebarButton("📅", "Book Appointment", "BookAppointment.html", true);
+  createSidebarButton("🩺", "Health Checkup", "healthCheckup.html", false);
+  createSidebarButton("💻", "Consultation", "consultation.html", false);
 });
