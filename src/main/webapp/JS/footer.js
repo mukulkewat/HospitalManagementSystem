@@ -1,68 +1,101 @@
- require([
-    "dijit/layout/ContentPane",
-    "dijit/form/Button",
-    "dojo/dom-construct",
-    "dojo/domReady!"
-  ], function (ContentPane, Button, domConstruct) {
+require([
+  "dijit/layout/ContentPane",
+  "dijit/form/Button",
+  "dojo/dom-construct",
+  "dojo/domReady!"
+], function (ContentPane, Button, domConstruct) {
 
-    // Create the footer ContentPane
-    var footerPane = new ContentPane({
-      class: "footerPane",
-      region: "bottom"
-    }, domConstruct.create("div", null, document.body));
+  // Create footer container
+  var footerPane = new ContentPane({
+    class: "footerPane",
+    region: "bottom",
+    style: "background: linear-gradient(to right, #2c3e50, #3498db); color: white; padding: 30px;"
+  }, domConstruct.create("div", null, document.body));
 
-    // Add button container inside footer
-    var buttonContainer = domConstruct.create("div", {
-      className: "buttonContainer"
-    }, footerPane.domNode);
+  // === Buttons Row ===
+  var buttonContainer = domConstruct.create("div", {
+    className: "buttonContainer"
+  }, footerPane.domNode);
 
-    // Save button
-    var saveButton = new Button({
-      label: "Book Appointment",
-      style: "width: 100px;margin-right:100px;",
-      onClick: function () {
-        alert("Booking Appointment Process form ....");
-        window.location.href="BookAppointment.html";
-      }
-    }).placeAt(buttonContainer);
+  var saveButton = new Button({
+    label: "Book Appointment",
+    style: "width: 160px; background-color: #1abc9c; color: white; font-weight: bold;",
+    onClick: function () {
+      alert("Redirecting to Book Appointment...");
+      window.location.href = "BookAppointment.html";
+    }
+  }).placeAt(buttonContainer);
 
-    // Cancel button
-    var cancelButton = new Button({
-      label: "FAQ",
-      style: "width: 100px;",
-      onClick: function () {
-        alert("FAQ ....");
-      }
-    }).placeAt(buttonContainer);
+  var cancelButton = new Button({
+    label: "FAQ",
+    style: "width: 100px;  color: white; font-weight: bold;",
+    onClick: function () {
+      alert("FAQ coming soon...");
+    }
+  }).placeAt(buttonContainer);
 
-    saveButton.startup();
-    cancelButton.startup();
+  saveButton.startup();
+  cancelButton.startup();
 
-    // Info grid section
-    var infoGrid = domConstruct.create("div", {
-      className: "infoGrid"
-    }, footerPane.domNode);
+  // === Info Grid Section ===
+  var infoGrid = domConstruct.create("div", {
+    className: "infoGrid"
+  }, footerPane.domNode);
 
-    // Column 1
-    domConstruct.create("div", {
-      className: "infoItem",
-      innerHTML: "<strong>Center Of Excellence</strong><br><ul id='list'><li>Cardiac Science</li><li>Neuro Sciences</li><li>Orthopaedics</li><li>Nephrology</li><li>Urology</li><li>Gastro Sciences</li><li>Pulmonology & Critical Care</li><li>Obstetrics and Gynaecology</li><li>Paediatrics & Neonatology</li></ul>",
-      style: "list-style:none;"
+  // Column 1: Departments
+  domConstruct.create("div", {
+    className: "infoItem",
+    innerHTML: `
+      <strong>Departments</strong>
+      <ul class="footerList">
+        <li>Cardiac Science</li>
+        <li>Neuro Sciences</li>
+        <li>Orthopaedics</li>
+        <li>Nephrology</li>
+        <li>Gastroenterology</li>
+        <li>Paediatrics</li>
+        <li>Gynaecology</li>
+      </ul>`
+  }, infoGrid);
 
-    }, infoGrid);
+  // Column 2: Contact Info
+  domConstruct.create("div", {
+    className: "infoItem",
+    innerHTML: `
+      <strong>Contact</strong><br>
+      📍 1234 Main Street, Health City<br>
+      📞 +91-9876543210<br>
+      ✉️ support@hospital.com`
+  }, infoGrid);
 
-    // Column 2
-    domConstruct.create("div", {
-      className: "infoItem",
-      innerHTML: "<strong>Address</strong><br>1234 Main Street, City"
-    }, infoGrid);
+  // Column 3: Quick Links
+  domConstruct.create("div", {
+    className: "infoItem",
+    innerHTML: `
+      <strong>Quick Links</strong><br>
+      <a href="#" class="footerLink">About Us</a><br>
+      <a href="#" class="footerLink">Careers</a><br>
+      <a href="#" class="footerLink">Privacy Policy</a><br>
+      <a href="#" class="footerLink">Terms & Conditions</a>`
+  }, infoGrid);
 
-    // Column 3
-    domConstruct.create("div", {
-      className: "infoItem",
-      innerHTML: "<strong>Phone</strong><br>+91-9876543210"
-    }, infoGrid);
+  // Column 4: Social Media
+  domConstruct.create("div", {
+    className: "infoItem",
+    innerHTML: `
+      <strong>Follow Us</strong><br>
+      <a href="#" class="footerLink">Facebook</a><br>
+      <a href="#" class="footerLink">Instagram</a><br>
+      <a href="#" class="footerLink">LinkedIn</a><br>
+      <a href="#" class="footerLink">Twitter</a>`
+  }, infoGrid);
 
-    // Start ContentPane
-    footerPane.startup();
-  });
+  // === Copyright ===
+  domConstruct.create("div", {
+    style: "text-align: center; font-size: 13px; margin-top: 25px; color: #ddd;",
+    innerHTML: "&copy; 2025 Hospital Management System. All rights reserved."
+  }, footerPane.domNode);
+
+  // Final startup
+  footerPane.startup();
+});
