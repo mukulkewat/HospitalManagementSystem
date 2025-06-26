@@ -30,7 +30,7 @@ require([
       color: white;
     ">
 
-      <h2 style="margin-bottom: 20px;">Welcome to Hospital Management</h2>
+      <!-- <h2 style="margin-bottom: 20px;">Welcome to Hospital Management</h2>-->
 
       <!-- Dynamic text area -->
       <div id="dynamicText" style="
@@ -42,8 +42,8 @@ require([
       "></div>
 
       <!-- Hospital Image -->
-      <img src="Images/hosp.webp" alt="Hospital Image"
-           style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.3);">
+      <img src="https://wallpaperaccess.com/full/624111.jpg" alt="Hospital Image"
+           style="max-width: 65%;max-height:100%; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.3);">
     </div>
   `,
   });
@@ -54,7 +54,6 @@ require([
   var menuItems = {
     "Need help?": "Here is the help information...",
     Careers: "Explore career opportunities at our hospital.",
-    "Contact Us": "Reach out to us at contact@hospital.com",
     "Leave Feedback": "We value your feedback. Please share it!",
     Search: "Use our search feature to find doctors and services.",
   };
@@ -67,23 +66,15 @@ require([
         className: "navItem",
         onclick: (function (text, labelText) {
           return function () {
+             var dynamicArea = document.getElementById("dynamicText");
             if (labelText === "Careers") {
-               var dynamicArea = document.getElementById("dynamicText");
-             
-              if (dynamicArea) {
                 centerPane.set("href","careers.html");
-              } else {
-                console.warn("dynamicText not found.");
-              }
-              
             } else if (labelText === "Leave Feedback") {
-              window.location.href = "feeback.html";
+              centerPane.set("href","feedback.html");
             } else if (labelText === "Need help?") {
-              window.location.href = "needhelp.html";
-            } else if (labelText === "Contact Us") {
-              window.location.href = "contact.html";
+             centerPane.set("href","needhelp.html");
             } else if (labelText === "Search") {
-              window.location.href = "search.html";
+             centerPane.set("href","search.html");
             } else {
               // ✅ Only update the text inside the dynamicText area
               var dynamicArea = document.getElementById("dynamicText");
