@@ -15,11 +15,7 @@ require([
 
   // Step 2: Create navbar
   var navbarDiv = domConstruct.create("div", { id: "navbar" });
-  var dynamicA = domConstruct.create("div",
-    {
-      id:"dynamicText"
-    }
-  )
+  
 
   // Step 3: Create centerPane globally so we can update later
   var centerPane = new ContentPane({
@@ -52,7 +48,7 @@ require([
   `,
   });
   
-  console.log(dynamic);
+
   
   // Step 4: Create menu items and click logic
   var menuItems = {
@@ -72,8 +68,8 @@ require([
         onclick: (function (text, labelText) {
           return function () {
             if (labelText === "Careers") {
-              //  var dynamicArea = document.getElementById("dynamicText");
-              dynamic
+               var dynamicArea = document.getElementById("dynamicText");
+             
               if (dynamicArea) {
                 centerPane.set("href","careers.html");
               } else {
