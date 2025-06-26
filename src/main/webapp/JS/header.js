@@ -2,37 +2,72 @@ require([
   "dijit/layout/BorderContainer",
   "dijit/layout/ContentPane",
   "dojo/dom-construct",
-  'dojo/dom',
-  "dojo/domReady!",
-], function (BorderContainer, ContentPane, domConstruct,dom) {
-  // Step 1: Create layout
-  var layout = new BorderContainer(
-    {
-      design: "headline",
-    },
-    "mainContainer"
-  );
+  "dojo/dom",
+  "dojo/domReady!"
+], function (BorderContainer, ContentPane, domConstruct, dom) {
 
-  // Step 2: Create navbar
-  var navbarDiv = domConstruct.create("div", { id: "navbar" });
-  
+  // Step 1: Layout Container
+  var layout = new BorderContainer({
+    design: "headline"
+  }, "mainContainer");
 
-  // Step 3: Create centerPane globally so we can update later
-  var centerPane = new ContentPane({
-    region: "center",
-    content: `
+  // Step 2: Create top nav bar wrapper
+  var navbarContainer = domConstruct.create("div", {
+  id: "navbarContainer",
+  style: `
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 30px;
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  `
+});
+
+
+  // LEFT: Logo
+  var logo = domConstruct.create("img", {
+    src: "Images/logo.png",
+    alt: "Hospital Logo",
+    style: "height: 50px;"
+  }, navbarContainer);
+
+  // CENTER: Menu Container
+  var navItemsContainer = domConstruct.create("div", {
+    style: `
+      display: flex;
+      justify-content: center;
+      flex: 1;
+      gap: 30px;
+      font-weight: bold;
+      font-size: 16px;
+      margin-left: 50px;
+    `
+  }, navbarContainer);
+
+  // RIGHT: Optional Placeholder
+  domConstruct.create("div", {
+    style: "width: 60px;" // Just spacing balance
+  }, navbarContainer);
+
+  // Step 3: Center pane
+var centerPane = new ContentPane({
+  region: "center",
+  style: "padding: 0; margin: 0;",
+  content: `
     <div style="
       text-align: center;
-    background: linear-gradient(to right, #00c6ff, #0072ff);
-
-      padding: 30px;
+      background: linear-gradient(to right, rgb(27, 55, 63), #0072ff);
+      padding: 30px 20px 0;
       border-radius: 10px;
       color: white;
+      margin: 0;
     ">
-
       <h2 style="margin-bottom: 20px;">Welcome to Hospital Management</h2>
-
-      <!-- Dynamic text area -->
       <div id="dynamicText" style="
         font-size: 18px;
         background: rgba(255, 255, 255, 0.1);
@@ -40,73 +75,113 @@ require([
         border-radius: 5px;
         margin-bottom: 10px;
       "></div>
+      <img src="Images/hospital1.png"
+     alt="Hospital Image"
+     style="
+       display: block;
+       width: 100%;
+       height: 700px;
+       border-radius: 10px;
+       box-shadow: 0 0 15px rgba(0,0,0,0.3);
+       margin-bottom: -4px;
+     ">
 
-      <!-- Hospital Image -->
-      <img src="Images/hosp.webp" alt="Hospital Image"
-           style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.3);">
     </div>
-  `,
-  });
-  
+  `
+});
 
-  
-  // Step 4: Create menu items and click logic
+
+  // Step 4: Navbar items
   var menuItems = {
-    "Need help?": "Here is the help information...",
-    Careers: "Explore career opportunities at our hospital.",
-    "Contact Us": "Reach out to us at contact@hospital.com",
-    "Leave Feedback": "We value your feedback. Please share it!",
-    Search: "Use our search feature to find doctors and services.",
+    "Need help?": "needhelp.html",
+    "Careers": "careers.html",
+    "Contact Us": "contact.html",
+    "Leave Feedback": "feedback.html",
+    "Search": "search.html"
   };
 
-  for (var label in menuItems) {
-    domConstruct.create(
-      "span",
-      {
-        innerHTML: label,
-        className: "navItem",
-        onclick: (function (text, labelText) {
-          return function () {
-            if (labelText === "Careers") {
-               var dynamicArea = document.getElementById("dynamicText");
-             
-              if (dynamicArea) {
-                centerPane.set("href","careers.html");
-              } else {
-                console.warn("dynamicText not found.");
-              }
-              
-            } else if (labelText === "Leave Feedback") {
-              window.location.href = "feeback.html";
-            } else if (labelText === "Need help?") {
-              window.location.href = "needhelp.html";
-            } else if (labelText === "Contact Us") {
-              window.location.href = "contact.html";
-            } else if (labelText === "Search") {
-              window.location.href = "search.html";
-            } else {
-              // ✅ Only update the text inside the dynamicText area
-              var dynamicArea = document.getElementById("dynamicText");
-              if (dynamicArea) {
-                
-              } else {
-                console.warn("dynamicText not found.");
-              }
-            }
-          };
-        })(menuItems[label], label),
-      },
-      navbarDiv
-    );
-  }
+ for (let label in menuItems) {
+  const navItem = domConstruct.create("span", {
+    innerHTML: label,
+    className: "navItem",
+    style: `
+      cursor: pointer;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: background 0.3s;
+    `,
+    onclick: (function (targetPage) {
+      return function () {
+        centerPane.set("href", targetPage);
+      };
+    })(menuItems[label]),
+  }, navItemsContainer);
 
-  // Step 5: Add navbar and centerPane to layout
+  // ✨ Hover Effect
+  navItem.onmouseenter = function () {
+    this.style.background = "rgba(255,255,255,0.2)";
+  };
+  navItem.onmouseleave = function () {
+    this.style.background = "transparent";
+  };
+}
+
+  // Step 5: Add header and center pane to layout
   var topPane = new ContentPane({
     region: "top",
-    content: navbarDiv,
+    content: navbarContainer
   });
 
   layout.addChild(topPane);
   layout.addChild(centerPane);
   layout.startup();
+
+  // Step 6: Sidebar buttons
+  var sidebarContainer = domConstruct.create("div", {
+    id: "rightSidebarContainer",
+    style: `
+      position: fixed;
+      top: 40%;
+      right: 0;
+      transform: translateY(-50%);
+      background-color: #8B0000;
+      border-radius: 8px 0 0 8px;
+      box-shadow: -2px 2px 10px rgba(0,0,0,0.2);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px 0;
+      gap: 15px;
+    `
+  }, document.body);
+
+  function createSidebarButton(icon, label, targetPage, needsLogin) {
+    var btn = domConstruct.create("div", {
+      innerHTML: `${icon}<br><span style='font-size: 13px;'>${label}</span>`,
+      style: `
+        color: white;
+        text-align: center;
+        cursor: pointer;
+        padding: 10px;
+        width: 120px;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        font-family: Arial;
+      `
+    }, sidebarContainer);
+
+    btn.addEventListener("click", function () {
+      if (needsLogin && localStorage.getItem("userLoggedIn") !== "true") {
+        alert("⚠️ Please sign in to access Book Appointment.");
+        window.location.href = "SignIn.html";
+      } else {
+        window.location.href = targetPage;
+      }
+    });
+  }
+
+  createSidebarButton("📅", "Book Appointment", "BookAppointment.html", true);
+  createSidebarButton("🩺", "Health Checkup", "healthCheckup.html", false);
+  createSidebarButton("💻", "Consultation", "consultation.html", false);
 });
