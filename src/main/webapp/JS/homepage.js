@@ -93,11 +93,11 @@ var centerPane = new ContentPane({
 
   // Step 4: Navbar items
   var menuItems = {
-    "Need help?": "needhelp.html",
-    "Careers": "careers.html",
+    "Home": "homepage.html",
+    "About Us  ": "about.html",
     
-    "Leave Feedback": "feedback.html",
-    "Search": "search.html"
+    "Login": "SignIn.html",
+    "Register": "register.html"
   };
 
  for (let label in menuItems) {
@@ -114,7 +114,7 @@ var centerPane = new ContentPane({
     onclick: (function (targetPage) {
       return function () {
         console.log(targetPage)
-        if(targetPage=="search.html")
+        if(targetPage=="search.html"||targetPage=="homepage.html"||targetPage=="SignIn.html")
           window.location.href=targetPage
         else
         centerPane.set("href", targetPage);
@@ -142,24 +142,24 @@ var centerPane = new ContentPane({
   layout.startup();
 
   // Step 6: Sidebar buttons
-  var sidebarContainer = domConstruct.create("div", {
-    id: "rightSidebarContainer",
-    style: `
-      position: fixed;
-      top: 40%;
-      right: 0;
-      transform: translateY(-50%);
-      background-color: #8B0000;
-      border-radius: 8px 0 0 8px;
-      box-shadow: -2px 2px 10px rgba(0,0,0,0.2);
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 10px 0;
-      gap: 15px;
-    `
-  }, document.body);
+//   var sidebarContainer = domConstruct.create("div", {
+//     id: "rightSidebarContainer",
+//     style: `
+//       position: fixed;
+//       top: 40%;
+//       right: 0;
+//       transform: translateY(-50%);
+//       background-color: #8B0000;
+//       border-radius: 8px 0 0 8px;
+//       box-shadow: -2px 2px 10px rgba(0,0,0,0.2);
+//       z-index: 9999;
+//       display: flex;
+//       flex-direction: column;
+//       align-items: center;
+//       padding: 10px 0;
+//       gap: 15px;
+//     `
+//   }, document.body);
 
   function createSidebarButton(icon, label, targetPage, needsLogin) {
     var btn = domConstruct.create("div", {
@@ -181,7 +181,7 @@ var centerPane = new ContentPane({
     });
   }
 
-  createSidebarButton("📅", "Book Appointment", "BookAppointment.html", true);
-  createSidebarButton("🩺", "Health Checkup", "healthCheckup.html", false);
-  createSidebarButton("💻", "Consultation", "consultation.html", false);
+//   createSidebarButton("📅", "Book Appointment", "BookAppointment.html", true);
+//   createSidebarButton("🩺", "Health Checkup", "healthCheckup.html", false);
+//   createSidebarButton("💻", "Consultation", "consultation.html", false);
 });
