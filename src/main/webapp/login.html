@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Patient Login</title>
+  <link rel="stylesheet" href="dijit/themes/claro/claro.css" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(90deg, #3F2B96 0%, #A8C0FF 100%);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      width: 420px;
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #0072ff;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .login-button {
+      width: 100%;
+      background-color: #0072ff;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .login-button:hover {
+      background-color: #005bb5;
+    }
+
+    .error-msg {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+
+  <script>
+    var dojoConfig = {
+      parseOnLoad: true
+    };
+  </script>
+  <script src="dojo/dojo.js"></script>
+</head>
+
+<body class="claro">
+  <div class="login-container">
+    <h2>Patient Login</h2>
+<form action="login" method="Post">
+    <div class="input-group">
+      <input id="usernameInput" type="text" data-dojo-type="dijit/form/ValidationTextBox"
+        data-dojo-props="required:true, missingMessage:'Enter username'"
+        placeholder="Enter Username" style="width:100%;" />
+    </div>
+
+    <div class="input-group">
+      <input id="passwordInput" type="password" data-dojo-type="dijit/form/ValidationTextBox"
+        data-dojo-props="required:true, missingMessage:'Enter password'"
+        placeholder="Enter Password" style="width:100%;" />
+    </div>
+
+    <button class="login-button" onclick="loginUser()">Login</button>
+    </form>
+
+    <div id="loginError" class="error-msg">❌ Invalid username or password</div>
+  </div>
+
+  <script>
+    function loginUser() {
+      const username = dijit.byId("usernameInput").get("value");
+      const password = dijit.byId("passwordInput").get("value");
+
+      const storedUser = JSON.parse(localStorage.getItem("registeredUser") || "{}");
+
+      if (username === storedUser.name && password === storedUser.password) {
+        alert("✅ Login successful!");
+        window.location.href = "BookAppointment.html"; // or index.html
+      } else {
+        document.getElementById("loginError").style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>
