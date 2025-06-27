@@ -96,7 +96,7 @@ var centerPane = new ContentPane({
     "Home": "homepage.html",
     "About Us  ": "about.html",
     
-    "Login": "SignIn.html",
+    "Login": "login.html",
     "Register": "register.html"
   };
 
@@ -114,7 +114,7 @@ var centerPane = new ContentPane({
     onclick: (function (targetPage) {
       return function () {
         console.log(targetPage)
-        if(targetPage=="search.html"||targetPage=="homepage.html"||targetPage=="SignIn.html")
+        if(targetPage!="about.html")
           window.location.href=targetPage
         else
         centerPane.set("href", targetPage);
