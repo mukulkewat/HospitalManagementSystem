@@ -84,10 +84,10 @@ require([
     className: "infoItem",
     innerHTML: `
       <strong>Follow Us</strong><br>
-      <a href="#" class="footerLink">Facebook</a><br>
-      <a href="#" class="footerLink">Instagram</a><br>
-      <a href="#" class="footerLink">LinkedIn</a><br>
-      <a href="#" class="footerLink">Twitter</a>`
+      <a href="https://www.facebook.com/" class="footerLink">Facebook</a><br>
+      <a href="https://www.instagram.com/" class="footerLink">Instagram</a><br>
+      <a href="https://in.linkedin.com/" class="footerLink">LinkedIn</a><br>
+      <a href="https://x.com/login?" class="footerLink">Twitter</a>`
   }, infoGrid);
 
   // === Copyright ===
