@@ -2,7 +2,7 @@ package com.ngs.DBconnection;
 
 import java.sql.Connection;
 
-public class ConnectionImpl implements IConnection{
+public class ConnectionImpl1 implements IConnection{
 
 	@Override
 	public Connection getConnection() {

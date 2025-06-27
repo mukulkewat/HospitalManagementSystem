@@ -63,7 +63,7 @@
     }
 
     .register-button {
-      background: #b30000;
+      /* background: #b30000; */
       color: white;
       padding: 12px;
       border: none;
@@ -75,14 +75,15 @@
       transition: 0.3s ease;
     }
 
-    .register-button:hover {
-      background: #d40000;
-    }
+    /* .register-button:hover {
+      background: #d40000; 
+    } */
   </style>
 
   <script>
     var dojoConfig = {
-      parseOnLoad: true
+      parseOnLoad: true,
+      async:true
     };
   </script>
   <script src="dojo/dojo.js"></script>
@@ -107,7 +108,7 @@
     <!-- Right Form -->
     <div class="right-section">
       <h3>Register</h3>
-     <form action="register" method="Post">
+     <form  method="Post">
       <div class="input-group">
         <input id="usernameInput" type="text" data-dojo-type="dijit/form/ValidationTextBox"
           data-dojo-props="required:true, missingMessage:'Enter your name'"
@@ -138,12 +139,12 @@
           placeholder="Create Password" style="width:100%;" />
       </div>
 
-      <button class="register-button" onclick="registerUser()">Register</button>
+      <button class="register-button" data-dojo-type="dijit/form/Button" id="registerBtn">Register</button>
       </form>
     </div>
   </div>
 
-  <script>
+  <!-- <script>
     function registerUser() {
       const name = dijit.byId("usernameInput").get("value");
       const email = dijit.byId("emailInput").get("value");
@@ -163,6 +164,7 @@
       // Redirect to appointment or login
       window.location.href = "BookAppointment.html";
     }
-  </script>
+  </script> -->
+  <script src="JSStore/registerS.js"></script>
 </body>
 </html>

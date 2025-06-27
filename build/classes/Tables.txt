@@ -1,0 +1,19 @@
+patientregisterdetail
+======================
+CREATE TABLE `hospital`.`patientregisterdetail` (
+  `name` VARCHAR(25) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `MobileNo` BIGINT(12) NOT NULL,
+  `DOB` DATE NOT NULL,
+  `PatientRegisterDetailcol` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`email`));
+==========================================================
+
+patientbookappointment
+=======================
+  CREATE TABLE `hospital`.`patientbookappointment` (
+  `name` VARCHAR(25) NOT NULL,
+  `department` VARCHAR(25) NULL,
+  `appiontmentDate` DATE NULL,
+  `appointmentTime` TIME NULL,
+  PRIMARY KEY (`name`));

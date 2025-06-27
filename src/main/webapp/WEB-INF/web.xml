@@ -19,7 +19,7 @@
 
     <!-- Optional welcome file -->
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>homepage.html</welcome-file>
     </welcome-file-list>
 
 </web-app>

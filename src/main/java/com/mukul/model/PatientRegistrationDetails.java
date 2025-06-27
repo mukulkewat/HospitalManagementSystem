@@ -1,11 +1,11 @@
-package com.ngs.DAO;
+package com.mukul.model;
 
 import java.time.LocalDate;
 
 public class PatientRegistrationDetails {
 	private String name;
 	private String email;
-	private Integer mobileNo;
+	private long mobileNo;
 	private LocalDate dob;
 	private String password;
 	public String getName() {
@@ -20,10 +20,10 @@ public class PatientRegistrationDetails {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Integer getMobileNo() {
+	public long getMobileNo() {
 		return mobileNo;
 	}
-	public void setMobileNo(Integer mobileNo) {
+	public void setMobileNo(long mobileNo) {
 		this.mobileNo = mobileNo;
 	}
 	public LocalDate getDob() {
@@ -38,7 +38,7 @@ public class PatientRegistrationDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public PatientRegistrationDetails(String name, String email, Integer mobileNo, LocalDate dob, String password) {
+	public PatientRegistrationDetails(String name, String email, long mobileNo, LocalDate dob, String password) {
 		super();
 		this.name = name;
 		this.email = email;
