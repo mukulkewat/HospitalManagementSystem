@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject; // You must add org.json or another JSON lib
 
-import com.mukul.DBconnection.DBConnection01;
+import com.ngs.DBconnection.DBConnection01;
 
 public class AppointmentServlet extends HttpServlet {
     @Override

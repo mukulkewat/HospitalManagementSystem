@@ -1,4 +1,4 @@
-package com.mukul.DBconnection;
+package com.ngs.DBconnection;
 
 import java.io.InputStream;
 import java.sql.Connection;
