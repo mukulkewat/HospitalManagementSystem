@@ -13,6 +13,7 @@ public class PatientDAOImpl implements IPatientDAO{
 	public PatientDAOImpl() {
         // ✅ Get the connection from Singleton
         this.con = SingletonConnection.getConnectionObject();
+        System.out.println(con);
     }
 	@Override
 	public String register(PatientRegistrationDetails patient) {

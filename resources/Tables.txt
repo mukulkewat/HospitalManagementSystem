@@ -17,3 +17,33 @@ patientbookappointment
   `appiontmentDate` DATE NULL,
   `appointmentTime` TIME NULL,
   PRIMARY KEY (`name`));
+  
+  
+  ===========================================
+  h2 database query
+  ==================
+  patientregisterdetail
+  =====================
+  CREATE TABLE patientregisterdetail (
+  name VARCHAR(25) NOT NULL,
+  email VARCHAR(45) NOT NULL,
+  MobileNo BIGINT NOT NULL,
+  DOB DATE NOT NULL,
+  PatientRegisterDetailcol VARCHAR(45) NOT NULL,
+  PRIMARY KEY (email)
+);
+
+=======================================
+patientbookappointment
+======================
+
+CREATE TABLE patientbookappointment (
+  name VARCHAR(25) NOT NULL,
+  department VARCHAR(25),
+  appiontmentDate DATE,
+  appointmentTime TIME,
+  PRIMARY KEY (name)
+);
+
+  
+  

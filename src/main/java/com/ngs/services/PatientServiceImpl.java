@@ -6,7 +6,9 @@ import com.ngs.DAO.PatientDAOImpl;
 
 public class PatientServiceImpl implements IPatientServices{
 	private IPatientDAO dao = new PatientDAOImpl();
-
+	public PatientServiceImpl() {
+		super();
+	}
 	@Override
 	public String register(PatientRegistrationDetails patient) {
 		String register = dao.register(patient);
