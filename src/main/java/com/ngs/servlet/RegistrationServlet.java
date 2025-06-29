@@ -3,7 +3,7 @@ package com.ngs.servlet;
 import java.io.IOException;
 import java.time.LocalDate;
 
-import com.mukul.model.PatientRegistrationDetails;
+import com.ngs.model.PatientRegistrationDetails;
 import com.ngs.services.IPatientServices;
 import com.ngs.services.PatientServiceImpl;
 

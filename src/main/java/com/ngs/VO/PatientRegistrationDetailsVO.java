@@ -1,23 +1,21 @@
-package com.ngs.model;
+package com.ngs.VO;
 
 import java.time.LocalDate;
 
-public class PatientRegistrationDetails {
+public class PatientRegistrationDetailsVO {
 	private String name;
 	private String email;
 	private long mobileNo;
 	private LocalDate dob;
-	private String password;
-	public PatientRegistrationDetails() {
+	public PatientRegistrationDetailsVO() {
 		super();
 	}
-	public PatientRegistrationDetails(String name, String email, long mobileNo, LocalDate dob, String password) {
+	public PatientRegistrationDetailsVO(String name, String email, long mobileNo, LocalDate dob) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.mobileNo = mobileNo;
 		this.dob = dob;
-		this.password = password;
 	}
 	public String getName() {
 		return name;
@@ -43,16 +41,11 @@ public class PatientRegistrationDetails {
 	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+
 	
 	@Override
 	public String toString() {
-		return "PatientRegistrationDetails [name=" + name + ", email=" + email + ", mobileNo=" + mobileNo + ", dob="
+		return "PatientRegistrationDetailsVO [name=" + name + ", email=" + email + ", mobileNo=" + mobileNo + ", dob="
 				+ dob + "]";
 	}
 	

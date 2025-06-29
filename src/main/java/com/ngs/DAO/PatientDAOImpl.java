@@ -3,41 +3,75 @@ package com.ngs.DAO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
-import com.mukul.model.PatientRegistrationDetails;
 import com.ngs.DBconnection.SingletonConnection;
+import com.ngs.model.PatientRegistrationDetails;
 
-public class PatientDAOImpl implements IPatientDAO{
-	 Connection con = null;
-	
+public class PatientDAOImpl implements IPatientDAO {
+	Connection con = SingletonConnection.getConnectionObject();;
+
 	public PatientDAOImpl() {
-        // ✅ Get the connection from Singleton
-        this.con = SingletonConnection.getConnectionObject();
-        System.out.println(con);
-    }
+		System.out.println(con);
+	}
+
 	@Override
 	public String register(PatientRegistrationDetails patient) {
-		
-		String register = "INSERT INTO patientregisterdetail VALUES(?,?,?,?,?)";
+
+		final String registerQY = "INSERT INTO PATIENTREGISTERDETAIL VALUES(?,?,?,?,?)";
 		int k = 0;
-		try(PreparedStatement registerQ = con.prepareStatement(register);){
-			registerQ.setString(1, patient.getName());
-			registerQ.setString(2, patient.getEmail());
-			registerQ.setLong(3,patient.getMobileNo());
-			registerQ.setDate(4, Date.valueOf(patient.getDob()));
-			registerQ.setString(5, patient.getPassword());
-			k = registerQ.executeUpdate();
-			if(k>0) {
+		try (PreparedStatement registerPQ = con.prepareStatement(registerQY);) {
+			registerPQ.setString(1, patient.getName());
+			registerPQ.setString(2, patient.getEmail());
+			registerPQ.setLong(3, patient.getMobileNo());
+			registerPQ.setDate(4, Date.valueOf(patient.getDob()));
+			registerPQ.setString(5, patient.getPassword());
+			k = registerPQ.executeUpdate();
+			if (k > 0) {
 				return "Registeration Succesfull";
+			} else
+				return "Registeration UnSuccessfull";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "";
+	}
+
+	@Override
+	public PatientRegistrationDetails login(String Email_Mobile, String password) {
+		final String loginQY = "SELECT * FROM PATIENTREGISTERDETAIL WHERE (MobileNo =? OR Email=?) AND PASSWORD=?";
+		PatientRegistrationDetails prd = new PatientRegistrationDetails(); 
+		
+		if(Email_Mobile!=null && password!=null) {
+		try(PreparedStatement loginPQ = con.prepareStatement(loginQY);) {
+			 if (Email_Mobile.matches("^\\d{10}$")) { // assuming 10-digit mobile number
+	                long mobile = Long.parseLong(Email_Mobile);
+	                loginPQ.setLong(1, mobile);
+	                loginPQ.setString(2, ""); // No email
+	            } else {
+	                loginPQ.setLong(1, 0); // No mobile
+	                loginPQ.setString(2, Email_Mobile);
+	            }
+	            loginPQ.setString(3, password); // password
+			ResultSet rs = loginPQ.executeQuery();
+			if(rs.next()) {
+				prd.setName(rs.getString(1));
+				prd.setEmail(rs.getString(2));
+				prd.setMobileNo(rs.getLong(3));
+				Date date = rs.getDate(4);
+				prd.setDob(date.toLocalDate());
+				System.out.println(prd+" in DAOIMPL");
+				return prd;
 			}
-			else return "Registeration UnSuccessfull";
-			
-		}catch (Exception e) {
-			   e.printStackTrace();
+			else {System.out.println("Invalid Password");return prd;}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
-		
-		return "";
+	}
+	return prd;
 	}
 
 }

@@ -13,18 +13,22 @@ import java.util.Properties;
 public class SingletonConnection {
 	
 	private static Properties ps = new Properties();
-	
+	private static Connection con ;
 	
 	static{
 		
 		try(InputStream input = SingletonConnection.class.getClassLoader()
 		        .getResourceAsStream("config.properties")) {
 			ps.load(input);
+			System.out.println(ps.getProperty("h2driverclass"));
+			Class.forName(ps.getProperty("h2driverclass"));
+            con = DriverManager.getConnection(ps.getProperty("h2url"), ps.getProperty("h2user"), ps.getProperty("h2pass")); // file-based DB
+            System.out.println("✅ H2 DB connected!");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	private static Connection con ;
+	
 	public static Connection getConnectionObject()  {
 //		try {
 //			if (con == null || con.isClosed()) {
@@ -48,34 +52,32 @@ public class SingletonConnection {
 //		return con;
 		
 
-				try {
-					if (con == null || con.isClosed()) {
-						try {
-							Class.forName(ps.getProperty("h2driverclass"));
-			                con = DriverManager.getConnection(ps.getProperty("h2url"), ps.getProperty("h2user"), ps.getProperty("h2pass")); // file-based DB
-			                System.out.println("✅ H2 DB connected!");
-			                return con;
-
-						} catch (Exception e) {
-							e.printStackTrace();
-
-						}
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
+//				try {
+//					if (con == null || con.isClosed()) {
+//						try {
+//							
+//			                return con;
+//
+//						} catch (Exception e) {
+//							e.printStackTrace();
+//
+//						}
+//					}
+//				} catch (SQLException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+				System.out.println("Connecting ....");
 				return con;		
 		
 	}
-//	public static void main(String[] args) {
-//		Connection connectionObject = SingletonConnection.getConnectionObject();
-//		Connection connectionObject2 = SingletonConnection.getConnectionObject();
-//		System.out.println(connectionObject.hashCode());
-//		System.out.println(connectionObject2.hashCode());
-//		
-//	}
+	public static void main(String[] args) {
+		Connection connectionObject = SingletonConnection.getConnectionObject();
+		Connection connectionObject2 = SingletonConnection.getConnectionObject();
+		System.out.println(connectionObject.hashCode());
+		System.out.println(connectionObject2.hashCode());
+		
+	}
 	
 	
 	

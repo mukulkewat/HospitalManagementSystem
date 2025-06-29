@@ -37,7 +37,7 @@
 
     .login-button {
       width: 100%;
-      background-color: #0072ff;
+      /* background-color: #0072ff; */
       color: white;
       border: none;
       padding: 12px;
@@ -70,11 +70,11 @@
 <body class="claro">
   <div class="login-container">
     <h2>Patient Login</h2>
-<form action="login" method="Post">
+<form action="login">
     <div class="input-group">
       <input id="usernameInput" type="text" data-dojo-type="dijit/form/ValidationTextBox"
         data-dojo-props="required:true, missingMessage:'Enter username'"
-        placeholder="Enter Username" style="width:100%;" />
+        placeholder="Email/MobileNo" style="width:100%;" />
     </div>
 
     <div class="input-group">
@@ -83,13 +83,13 @@
         placeholder="Enter Password" style="width:100%;" />
     </div>
 
-    <button class="login-button" onclick="loginUser()">Login</button>
+    <button class="login-button" style="text-align: center;" data-dojo-type="dijit/form/Button" id="loginBtn" >Login</button>
     </form>
 
     <div id="loginError" class="error-msg">❌ Invalid username or password</div>
   </div>
 
-  <script>
+  <!-- <script>
     function loginUser() {
       const username = dijit.byId("usernameInput").get("value");
       const password = dijit.byId("passwordInput").get("value");
@@ -103,6 +103,7 @@
         document.getElementById("loginError").style.display = "block";
       }
     }
-  </script>
+  </script> -->
+  <script src="JSRetrieve/login.js"></script>
 </body>
 </html>
