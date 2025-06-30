@@ -13,29 +13,29 @@ require([
   }, domConstruct.create("div", null, document.body));
 
   // === Buttons Row ===
-  var buttonContainer = domConstruct.create("div", {
+ /* var buttonContainer = domConstruct.create("div", {
     className: "buttonContainer"
-  }, footerPane.domNode);
+  }, footerPane.domNode);*/
 
-  var saveButton = new Button({
+  /*var saveButton = new Button({
     label: "Book Appointment",
     style: "width: 160px; background-color: #1abc9c; color: white; font-weight: bold;",
     onClick: function () {
       alert("Redirecting to Book Appointment...");
       window.location.href = "BookAppointment.html";
     }
-  }).placeAt(buttonContainer);
+  }).placeAt(buttonContainer);*/
 
-  var cancelButton = new Button({
+  /*var cancelButton = new Button({
     label: "FAQ",
     style: "width: 100px;  color: white; font-weight: bold;",
     onClick: function () {
       alert("FAQ coming soon...");
     }
-  }).placeAt(buttonContainer);
+  }).placeAt(buttonContainer);*/
 
-  saveButton.startup();
-  cancelButton.startup();
+ /* saveButton.startup();
+  cancelButton.startup();*/
 
   // === Info Grid Section ===
   var infoGrid = domConstruct.create("div", {

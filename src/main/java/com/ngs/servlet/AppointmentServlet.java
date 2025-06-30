@@ -1,36 +1,41 @@
 package com.ngs.servlet;
 
-import java.io.BufferedReader;
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
+import com.ngs.services.IPatientServices;
+import com.ngs.services.PatientServiceImpl;
+
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonReader;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import org.json.JSONObject; // You must add org.json or another JSON lib
-
-import com.ngs.DBconnection.DBConnection01;
-
 public class AppointmentServlet extends HttpServlet {
+	private IPatientServices service = new PatientServiceImpl();
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         // Read JSON body
-        StringBuilder jsonBuffer = new StringBuilder();
-        BufferedReader reader = req.getReader();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            jsonBuffer.append(line);
-        }
-
-        // Parse JSON
-        JSONObject json = new JSONObject(jsonBuffer.toString());
+    	JsonReader reader = Json.createReader(req.getReader());
+        JsonObject json = reader.readObject();
+       
 
         String patientName = json.getString("Name");
         String department = json.getString("Department");
-        String appointmentDate = json.getString("AppointmentDate");
-        String appointmentTime = json.getString("AppointmentTime");
+        Date appointmentDate = Date.valueOf(LocalDate.parse(json.getString("AppointmentDate"))) ; // example: "2025-06-30"
+         // parses the date string
+         // converts LocalDate to java.sql.Date
+        Time appointmentTime = Time.valueOf(LocalTime.parse(json.getString("AppointmentTime"))) ; ;// e.g., "07:15" or "07:15:00"
+        
+        
+        
         try {
-        	 DBConnection01.storeData(patientName, department, appointmentDate, appointmentTime);
+        	service.bookAppointment(patientName, department, appointmentDate, appointmentTime);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

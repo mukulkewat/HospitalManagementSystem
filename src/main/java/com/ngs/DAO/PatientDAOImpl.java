@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Time;
+import java.time.LocalTime;
 
 import com.ngs.DBconnection.SingletonConnection;
 import com.ngs.model.PatientRegistrationDetails;
@@ -74,4 +76,40 @@ public class PatientDAOImpl implements IPatientDAO {
 	return prd;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public String bookAppointment(String patientName, String department, Date appointmentDate, Time appointmentTime) {
+		try(PreparedStatement psm = con.prepareStatement("INSERT INTO PATIENTBOOKAPPOINTMENT  VALUES(?,?,?,?)");) {
+			
+			if(patientName!=null && department!=null&& appointmentDate!=null&& appointmentTime!=null) {
+			 // java.sql.Time
+			psm.setString(1, patientName);
+			psm.setString(2, department);
+			psm.setDate(3, appointmentDate);
+			psm.setTime(4, appointmentTime);
+			
+			int k = psm.executeUpdate();
+			 if(k>0) {
+				 System.out.println("Data Stored Successfully");
+			 }
+			 else System.err.println("Data Stored UnSuccessfully");
+			}else throw new NullPointerException();
+			
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+			return e.getMessage();
+			
+		}
+		return "";
+	}
+	
 }

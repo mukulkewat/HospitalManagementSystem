@@ -93,11 +93,14 @@ var centerPane = new ContentPane({
 
   // Step 4: Navbar items
   var menuItems = {
+	"Home":"homepage.html",
     "Need help?": "needhelp.html",
     "Careers": "careers.html",
     
     "Leave Feedback": "feedback.html",
-    "Search": "search.html"
+    "Search": "search.html",
+    "Logout":"logout"
+	
   };
 
  for (let label in menuItems) {
@@ -111,15 +114,29 @@ var centerPane = new ContentPane({
       border-radius: 6px;
       transition: background 0.3s;
     `,
-    onclick: (function (targetPage) {
-      return function () {
-        console.log(targetPage)
-        if(targetPage=="search.html")
-          window.location.href=targetPage
-        else
-        centerPane.set("href", targetPage);
-      };
-    })(menuItems[label]),
+	onclick: (function (targetPage, labelText) {
+	  return function () {
+	    if (labelText.toLowerCase() === "logout") {
+	      require(["dojo/request/xhr"], function (xhr) {
+	        xhr.post("logout", {
+	          handleAs: "json"
+	        }).then(function (response) {
+	          console.log("Logout success:", response);
+	          // Redirect after logout
+	          window.location.href = "homepage.html";
+	        }, function (err) {
+	          console.error("Logout failed", err);
+	          alert("Logout failed. Please try again.");
+	        });
+	      });
+	    } else if (targetPage === "search.html"||targetPage=="index.html") {
+	      window.location.href = targetPage;
+	    } else {
+	      centerPane.set("href", targetPage);
+	    }
+	  };
+	})(menuItems[label], label),
+
   }, navItemsContainer);
 
   // ✨ Hover Effect
