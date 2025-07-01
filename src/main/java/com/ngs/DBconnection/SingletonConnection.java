@@ -6,80 +6,74 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-
-
-
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 public class SingletonConnection {
-	
-	private static Properties ps = new Properties();
-	private static Connection con ;
-	
-	static{
-		
-		try(InputStream input = SingletonConnection.class.getClassLoader()
-		        .getResourceAsStream("config.properties")) {
-			ps.load(input);
-			System.out.println(ps.getProperty("h2driverclass"));
-			Class.forName(ps.getProperty("h2driverclass"));
-            con = DriverManager.getConnection(ps.getProperty("h2url"), ps.getProperty("h2user"), ps.getProperty("h2pass")); // file-based DB
-            System.out.println("✅ H2 DB connected!");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static Connection getConnectionObject()  {
-//		try {
-//			if (con == null || con.isClosed()) {
-//				try {
-//					Class.forName(ps.getProperty("mysqldriverclass"));
-//					con = DriverManager.getConnection(ps.getProperty("mysqlurl"), ps.getProperty("mysqluser"),
-//							ps.getProperty("mysqlpass"));
-//					System.out.println(con);
-//					return con;
-//
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//
-//				}
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		return con;
-		
 
-//				try {
-//					if (con == null || con.isClosed()) {
-//						try {
-//							
-//			                return con;
-//
-//						} catch (Exception e) {
-//							e.printStackTrace();
-//
-//						}
-//					}
-//				} catch (SQLException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-				System.out.println("Connecting ....");
-				return con;		
-		
-	}
-	public static void main(String[] args) {
-		Connection connectionObject = SingletonConnection.getConnectionObject();
-		Connection connectionObject2 = SingletonConnection.getConnectionObject();
-		System.out.println(connectionObject.hashCode());
-		System.out.println(connectionObject2.hashCode());
-		
-	}
-	
-	
-	
+    private static final Logger logger = Logger.getLogger(SingletonConnection.class);
 
+    private static Properties ps = new Properties();
+    private static Connection con;
+
+    static {
+        // Load Log4j properties
+        try {
+            PropertyConfigurator.configure(
+                    SingletonConnection.class.getClassLoader().getResource("log4j.properties"));
+            logger.info("Log4j configuration loaded successfully.");
+        } catch (Exception e) {
+            System.err.println("Log4j configuration failed.");
+            e.printStackTrace();
+        }
+
+        // Load DB config and establish initial connection
+        try (InputStream input = SingletonConnection.class.getClassLoader()
+                .getResourceAsStream("config.properties")) {
+
+            if (input == null) {
+                throw new RuntimeException("config.properties file not found in classpath.");
+            }
+
+            ps.load(input);
+            logger.info("Database properties loaded from config.properties");
+
+            Class.forName(ps.getProperty("driverclass"));
+            con = DriverManager.getConnection(
+                    ps.getProperty("url"),
+                    ps.getProperty("user"),
+                    ps.getProperty("pass"));
+
+            logger.info("Initial database connection established successfully to: " + ps.getProperty("dbName"));
+
+        } catch (Exception e) {
+            logger.error("Error during initial database connection setup: ", e);
+            e.printStackTrace();
+        }
+    }
+
+    public static Connection getConnectionObject() {
+        try {
+            if (con == null || con.isClosed()) {
+                logger.warn("Database connection is null or closed. Attempting to reconnect...");
+                try {
+                    Class.forName(ps.getProperty("driverclass"));
+                    con = DriverManager.getConnection(
+                            ps.getProperty("url"),
+                            ps.getProperty("user"),
+                            ps.getProperty("pass"));
+
+                    logger.info("New database connection re-established.");
+                } catch (Exception e) {
+                    logger.error("Error while re-establishing database connection: ", e);
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("SQL Exception while checking connection state: ", e);
+            e.printStackTrace();
+        }
+
+        return con;
+    }
 }

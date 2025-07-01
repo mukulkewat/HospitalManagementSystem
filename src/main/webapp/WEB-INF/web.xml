@@ -6,16 +6,16 @@
          version="3.1">
 
     <!-- Servlet Declaration -->
-    <servlet>
+  <!--   <servlet>
         <servlet-name>AppointmentServlet</servlet-name>
         <servlet-class>com.ngs.servlet.AppointmentServlet</servlet-class>
     </servlet>
 
-    <!-- Servlet Mapping -->
+    Servlet Mapping
     <servlet-mapping>
         <servlet-name>AppointmentServlet</servlet-name>
         <url-pattern>/appointment</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping> -->
 
     <!-- Optional welcome file -->
     <welcome-file-list>
