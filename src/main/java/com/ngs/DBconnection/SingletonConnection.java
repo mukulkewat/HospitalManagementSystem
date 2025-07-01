@@ -17,16 +17,6 @@ public class SingletonConnection {
     private static Connection con;
 
     static {
-        // Load Log4j properties
-        try {
-            PropertyConfigurator.configure(
-                    SingletonConnection.class.getClassLoader().getResource("log4j.properties"));
-            logger.info("Log4j configuration loaded successfully.");
-        } catch (Exception e) {
-            System.err.println("Log4j configuration failed.");
-            e.printStackTrace();
-        }
-
         // Load DB config and establish initial connection
         try (InputStream input = SingletonConnection.class.getClassLoader()
                 .getResourceAsStream("config.properties")) {

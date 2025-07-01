@@ -1,0 +1,3 @@
+D:/Hospital management/HospitalManagementSystem/logs/app-log.html
+
+D:/Hospital management/HospitalManagementSystem/logs/error-log.html
