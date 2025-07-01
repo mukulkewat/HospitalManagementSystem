@@ -2,10 +2,12 @@ package com.ngs.services;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 import com.ngs.DAO.IPatientDAO;
 import com.ngs.DAO.PatientDAOImpl;
 import com.ngs.VO.PatientRegistrationDetailsVO;
+import com.ngs.model.PatientBookAppointmentDetail;
 import com.ngs.model.PatientRegistrationDetails;
 
 public class PatientServiceImpl implements IPatientServices{
@@ -42,6 +44,13 @@ public class PatientServiceImpl implements IPatientServices{
 		throw new NullPointerException();
 		
 	}
+	@Override
+	public List<PatientBookAppointmentDetail> fetchAppointment() {
+		List<PatientBookAppointmentDetail> fetchAppointment = dao.fetchAppointment();
+		if(fetchAppointment==null)throw new NullPointerException();
+		return fetchAppointment;
+	}
+	
 	
 
 }

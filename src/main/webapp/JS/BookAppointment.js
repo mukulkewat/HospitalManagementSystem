@@ -52,6 +52,7 @@ require([
         function (response) {
           console.log("Success:", response);
           alert("Appointment submitted in xhrpost!");
+          window.location.href="./index.html"
         },
         function (errorr) {
           console.error("Error:", errorr);

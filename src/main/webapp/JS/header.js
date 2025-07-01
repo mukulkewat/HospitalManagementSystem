@@ -3,18 +3,20 @@ require([
   "dijit/layout/ContentPane",
   "dojo/dom-construct",
   "dojo/dom",
-  "dojo/domReady!"
+  "dojo/domReady!",
 ], function (BorderContainer, ContentPane, domConstruct, dom) {
-
   // Step 1: Layout Container
-  var layout = new BorderContainer({
-    design: "headline"
-  }, "mainContainer");
+  var layout = new BorderContainer(
+    {
+      design: "headline",
+    },
+    "mainContainer"
+  );
 
   // Step 2: Create top nav bar wrapper
   var navbarContainer = domConstruct.create("div", {
-  id: "navbarContainer",
-  style: `
+    id: "navbarContainer",
+    style: `
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -25,20 +27,25 @@ require([
     position: sticky;
     top: 0;
     z-index: 1000;
-  `
-});
-
+  `,
+  });
 
   // LEFT: Logo
-  var logo = domConstruct.create("img", {
-    src: "Images/logo.png",
-    alt: "Hospital Logo",
-    style: "height: 50px;"
-  }, navbarContainer);
+  var logo = domConstruct.create(
+    "img",
+    {
+      src: "Images/logo.png",
+      alt: "Hospital Logo",
+      style: "height: 50px;",
+    },
+    navbarContainer
+  );
 
   // CENTER: Menu Container
-  var navItemsContainer = domConstruct.create("div", {
-    style: `
+  var navItemsContainer = domConstruct.create(
+    "div",
+    {
+      style: `
       display: flex;
       justify-content: center;
       flex: 1;
@@ -46,19 +53,25 @@ require([
       font-weight: bold;
       font-size: 16px;
       margin-left: 50px;
-    `
-  }, navbarContainer);
+    `,
+    },
+    navbarContainer
+  );
 
   // RIGHT: Optional Placeholder
-  domConstruct.create("div", {
-    style: "width: 60px;" // Just spacing balance
-  }, navbarContainer);
+  domConstruct.create(
+    "div",
+    {
+      style: "width: 60px;", // Just spacing balance
+    },
+    navbarContainer
+  );
 
   // Step 3: Center pane
-var centerPane = new ContentPane({
-  region: "center",
-  style: "padding: 0; margin: 0;",
-  content: `
+  var centerPane = new ContentPane({
+    region: "center",
+    style: "padding: 0; margin: 0;",
+    content: `
     <div style="
       text-align: center;
       background: linear-gradient(to right, rgb(27, 55, 63), #0072ff);
@@ -87,71 +100,96 @@ var centerPane = new ContentPane({
      ">
 
     </div>
-  `
-});
-
+  `,
+  });
 
   // Step 4: Navbar items
   var menuItems = {
-	"Home":"homepage.html",
+    Home: "homepage.html",
     "Need help?": "needhelp.html",
-    "Careers": "careers.html",
-    
+    Careers: "careers.html",
+
     "Leave Feedback": "feedback.html",
-    "Search": "search.html",
-    "Logout":"logout"
-	
+    Search: "search.html",
+    AppointmentDetails: "grids.html",
+    Logout: "logout",
   };
 
- for (let label in menuItems) {
-  const navItem = domConstruct.create("span", {
-    innerHTML: label,
-    className: "navItem",
-    style: `
+  for (let label in menuItems) {
+    const navItem = domConstruct.create(
+      "span",
+      {
+        innerHTML: label,
+        className: "navItem",
+        style: `
       cursor: pointer;
       color: white;
       padding: 8px 16px;
       border-radius: 6px;
       transition: background 0.3s;
     `,
-	onclick: (function (targetPage, labelText) {
-	  return function () {
-	    if (labelText.toLowerCase() === "logout") {
-	      require(["dojo/request/xhr"], function (xhr) {
-	        xhr.post("logout", {
-	          handleAs: "json"
-	        }).then(function (response) {
-	          console.log("Logout success:", response);
-	          // Redirect after logout
-	          window.location.href = "homepage.html";
-	        }, function (err) {
-	          console.error("Logout failed", err);
-	          alert("Logout failed. Please try again.");
-	        });
-	      });
-	    } else if (targetPage === "search.html"||targetPage=="index.html") {
-	      window.location.href = targetPage;
-	    } else {
-	      centerPane.set("href", targetPage);
-	    }
-	  };
-	})(menuItems[label], label),
+        onclick: (function (targetPage, labelText) {
+          return function () {
+            if (labelText.toLowerCase() === "logout") {
+              require(["dojo/request/xhr"], function (xhr) {
+                xhr
+                  .post("logout", {
+                    handleAs: "json",
+                  })
+                  .then(
+                    function (response) {
+                      console.log("Logout success:", response);
+                      // Redirect after logout
+                      window.location.href = "homepage.html";
+                    },
+                    function (err) {
+                      console.error("Logout failed", err);
+                      alert("Logout failed. Please try again.");
+                    }
+                  );
+              });
+            }
+            //===================================================
+            else if (targetPage === "grids.html") {
+              require(["dojo/request", "JSRetrieve/grids"], function (
+                request,
+                gridModule
+              ) {
+                request.get("grids.html").then(function (html) {
+                  centerPane.set("content", html);
 
-  }, navItemsContainer);
+                  // Wait a moment to ensure DOM is inserted
+                  setTimeout(function () {
+                    gridModule.load("gridContainer");
+                  }, 0);
+                });
+              });
+            }
+            // ==============================================
+            else if (targetPage === "search.html" || targetPage == "index.html") {
+              window.location.href = targetPage;
+            } else {
+              centerPane.set("href", targetPage);
+            }
+          };
+        })(menuItems[label], label),
+      },
+      navItemsContainer
+    );
 
-  // ✨ Hover Effect
-  navItem.onmouseenter = function () {
-    this.style.background = "rgba(255,255,255,0.2)";
-  };
-  navItem.onmouseleave = function () {
-    this.style.background = "transparent";
-  };
-}
+    // ✨ Hover Effect
+    navItem.onmouseenter = function () {
+      this.style.background = "rgba(255,255,255,0.2)";
+    };
+    navItem.onmouseleave = function () {
+      this.style.background = "transparent";
+    };
+  }
 
   // Step 5: Add header and center pane to layout
   var topPane = new ContentPane({
     region: "top",
-    content: navbarContainer
+    content: navbarContainer,
   });
 
   layout.addChild(topPane);
@@ -159,9 +197,11 @@ var centerPane = new ContentPane({
   layout.startup();
 
   // Step 6: Sidebar buttons
-  var sidebarContainer = domConstruct.create("div", {
-    id: "rightSidebarContainer",
-    style: `
+  var sidebarContainer = domConstruct.create(
+    "div",
+    {
+      id: "rightSidebarContainer",
+      style: `
       position: fixed;
       top: 40%;
       right: 0;
@@ -175,13 +215,17 @@ var centerPane = new ContentPane({
       align-items: center;
       padding: 10px 0;
       gap: 15px;
-    `
-  }, document.body);
+    `,
+    },
+    document.body
+  );
 
   function createSidebarButton(icon, label, targetPage, needsLogin) {
-    var btn = domConstruct.create("div", {
-      innerHTML: `${icon}<br><span style='font-size: 13px;'>${label}</span>`,
-      style: `
+    var btn = domConstruct.create(
+      "div",
+      {
+        innerHTML: `${icon}<br><span style='font-size: 13px;'>${label}</span>`,
+        style: `
         color: white;
         text-align: center;
         cursor: pointer;
@@ -189,12 +233,13 @@ var centerPane = new ContentPane({
         width: 120px;
         border-bottom: 1px solid rgba(255,255,255,0.2);
         font-family: Arial;
-      `
-    }, sidebarContainer);
+      `,
+      },
+      sidebarContainer
+    );
 
     btn.addEventListener("click", function () {
-        window.location.href = targetPage;
-      
+      window.location.href = targetPage;
     });
   }
 

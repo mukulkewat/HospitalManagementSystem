@@ -5,9 +5,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Time;
-import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.ngs.DBconnection.SingletonConnection;
+import com.ngs.model.PatientBookAppointmentDetail;
 import com.ngs.model.PatientRegistrationDetails;
 
 public class PatientDAOImpl implements IPatientDAO {
@@ -87,7 +89,8 @@ public class PatientDAOImpl implements IPatientDAO {
 	
 	@Override
 	public String bookAppointment(String patientName, String department, Date appointmentDate, Time appointmentTime) {
-		try(PreparedStatement psm = con.prepareStatement("INSERT INTO PATIENTBOOKAPPOINTMENT  VALUES(?,?,?,?)");) {
+		 final String bookingQY="INSERT INTO PATIENTBOOKAPPOINTMENT  VALUES(?,?,?,?)";
+		try(PreparedStatement psm = con.prepareStatement(bookingQY);) {
 			
 			if(patientName!=null && department!=null&& appointmentDate!=null&& appointmentTime!=null) {
 			 // java.sql.Time
@@ -111,5 +114,34 @@ public class PatientDAOImpl implements IPatientDAO {
 		}
 		return "";
 	}
+
+	@Override
+	public List<PatientBookAppointmentDetail> fetchAppointment() {
+		final String fetchBookingQY = "SELECT NAME,DEPARTMENT, 	APPIONTMENTDATE, APPOINTMENTTIME FROM PATIENTBOOKAPPOINTMENT";
+		List<PatientBookAppointmentDetail> listOfAppointmentPatient;
+		try(PreparedStatement psm = con.prepareStatement(fetchBookingQY)) {
+			ResultSet rs = psm.executeQuery();
+			if(rs!=null) {
+			listOfAppointmentPatient = new ArrayList<PatientBookAppointmentDetail>();
+			while(rs.next()) {
+				PatientBookAppointmentDetail bookDetail = new PatientBookAppointmentDetail();
+				bookDetail.setPatientName(rs.getString(1));
+				bookDetail.setDepartment(rs.getString(2));
+				bookDetail.setAppointmentDate(rs.getDate(3));
+				bookDetail.setAppointmentTime(rs.getTime(4));
+				listOfAppointmentPatient.add(bookDetail);
+			}
+			return listOfAppointmentPatient;
+			}
+			return null;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
 	
 }

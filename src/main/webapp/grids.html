@@ -1,65 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>GridInDojo</title>
-
-    <!-- DOJO CLARO THEME -->
-    <link rel="stylesheet" href="dijit/themes/claro/claro.css">
-    
-    <link rel="stylesheet" href="dojox/grid/enhanced/resources/claro/EnhancedGrid.css">
-
-    <!-- DOJO CONFIG -->
-    <script>
-        var dojoConfig = {
-            async: true,
-            parseOnLoad: true
-        };
-    </script>
-
-    <!-- DOJO SCRIPT -->
-    <script src="dojo/dojo.js"></script>
-</head>
-
-<body class="claro">
-    <div id="gridContainer" style="height: 300px;display: flex;justify-content: center;align-items: center;"></div>
-
-    <script>
-        require([
-            "dojox/grid/EnhancedGrid",
-            "dojo/data/ItemFileWriteStore",
-            "dojo/domReady!"
-        ], function (EnhancedGrid, ItemFileWriteStore) {
-
-            var data1 = {
-                identifier: 'rollno',
-                items: [
-                    { rollno: 1, name: "John", medium: "English", board: "CBSE", percentage: "55" },
-                    { rollno: 2, name: "Jane", medium: "English", board: "CBSE", percentage: "65" },
-                    { rollno: 3, name: "Doe",  medium: "English", board: "CBSE", percentage: "75" }
-                ]
-            };
-
-            var layout = [
-                { name: "Roll No", field: "rollno", width: "80px" },
-                { name: "Name", field: "name", width: "100px" },
-                { name: "Medium", field: "medium", width: "100px" },
-                { name: "Board", field: "board", width: "100px" },
-                { name: "Percentage", field: "percentage", width: "100px" }
-            ];
-
-            var store1 = new ItemFileWriteStore({ data: data1 });
-
-            var eleGrid = new EnhancedGrid({
-                store: store1,
-                structure: layout,
-                autoHeight: true,
-                autoWidth: true,
-                rowSelector: "20px"
-            }, "gridContainer");
-
-            eleGrid.startup();
-        });
-    </script>
-</body>
-</html>
+<!-- grids.html -->
+<div id="gridWrapper" style="
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 20px;
+">
+  <div id="gridContainer" style="width: 80%; height: 300px;"></div>
+</div>
